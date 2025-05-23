@@ -1,0 +1,22 @@
+# Rust
+/target/
+/Cargo.lock
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE-specific files
+.idea/
+.vscode/
+
+# Sensitive files (local config, temporary vault)
+.secret/
+*.vault
+*.db
+
+# Environment variables
+.env
+
+# Secret folder 
+/_Notes

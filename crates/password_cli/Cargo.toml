@@ -1,0 +1,8 @@
+[package]
+name = "password_cli"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+password_core = { path = "../password_core" } # Path is relative to this Cargo.toml's location
+base64 = "0.21.0"

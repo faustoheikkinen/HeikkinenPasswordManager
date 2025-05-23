@@ -1,0 +1,42 @@
+# [package]
+# name = "password_core"
+# version = "0.1.0"
+# edition = "2021"
+
+# [dependencies]
+# argon2 = "0.5.3"
+# chacha20poly1305 = "0.10.1"
+# rand = "0.8.5"
+# thiserror = "1.0.60"
+# base64 = "0.21.0"
+# uuid = { version = "1.8.0", features = ["v4"] } # For unique IDs for password entries
+# serde = { version = "1.0.203", features = ["derive"] } # For serialization/deserialization
+# serde_json = "1.0.117" # For JSON serialization
+
+# HeikkinenPasswordManager/crates/password_core/Cargo.toml
+[package]
+name = "password_core"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# Cryptography and encoding
+aes = "0.8"
+block-modes = "0.9" # AES in CBC mode (for demonstration; AES-GCM is preferred for real apps)
+sha2 = "0.10"       # For hashing (use Argon2/Scrypt for real password storage)
+rand = "0.8"        # For random number generation (e.g., password generation, IVs)
+base64 = "0.22"     # For encoding/decoding binary data (e.g., encrypted payloads)
+uuid = { version = "1.16", features = ["v4", "fast-rng"] } # For unique identifiers
+# uuid = { version = "1.16", features = ["v4", "fast-rng", "serde"] } # Ensure UUID is configured with features you need.
+serde = { version = "1.0", features = ["derive"] } # For serialization/deserialization of data types
+serde_json = "1.0"  # For serializing/deserializing to JSON
+
+# CLI and user interaction
+clap = { version = "4.5", features = ["derive"] } # For command-line argument parsing
+rpassword = "7.4"   # For secure password input without echoing
+comfy-table = "7.1" # For displaying tabular data in the CLI
+argon2 = "0.5.3"
+chacha20poly1305 = "0.10.1"
+thiserror = "1.0.60"
+                                                                  # The `UuidError` in your error message suggests `uuid`.
+

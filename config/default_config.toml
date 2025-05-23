@@ -1,0 +1,11 @@
+# Default configuration settings for the password manager
+
+# Path to the encrypted vault file (relative to .secret folder)
+vault_file_name = "vault.encrypted"
+
+# Default password generation options
+default_password_length = 16
+default_password_include_letters = true
+default_password_include_numbers = true
+default_password_include_symbols = true
+default_password_custom_symbols = "!@#$%%^&*()"
