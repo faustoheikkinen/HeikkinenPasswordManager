@@ -1,3 +1,5 @@
+// crates/password_cli/src/main.rs
+
 // Add this at the top of main.rs in password_cli
 use base64::engine::Engine as _; // Import the trait for the encode method
 use base64::engine::general_purpose::STANDARD; // Import the standard engineuse std::io::{self, Write};

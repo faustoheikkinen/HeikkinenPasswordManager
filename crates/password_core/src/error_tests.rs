@@ -1,4 +1,4 @@
-// crates/password_core/tests/error_tests.rs
+// crates/password_core/src/error_tests.rs
 
 use password_core::crypto::{
     derive_key_from_password, encrypt, decrypt, generate_random_bytes, SALT_LEN, NONCE_LEN, KEY_LEN, EncryptionKey

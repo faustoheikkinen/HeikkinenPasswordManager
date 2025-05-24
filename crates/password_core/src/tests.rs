@@ -1,3 +1,5 @@
+// crates/password_core/src/tests.rs
+
 #[cfg(test)]
 mod tests {
     use super::*;

@@ -1,0 +1,61 @@
+graph TD
+    subgraph External Actors
+        OS_USER_LOGIN[Logged-in OS User]
+        OS_SECURITY[OS Security Services]
+    end
+
+    subgraph Password Manager Application
+        APP_UI[App User Interface]
+        AUTH_MODULE(Authentication Module)
+        SETTINGS_MGR(Settings Manager)
+        PROFILE_MGR(Profile Management Module)
+        VAULT_MGR(Vault Management Module)
+        CRYPTO_MGR(Crypto Manager)
+    end
+
+    subgraph Data Stores
+        APP_CONFIG_FILE[App Config File]
+        VAULT_FILES[Encrypted Vault Files]
+    end
+
+    OS_USER_LOGIN -- "Master Password / PIN / Biometric Input" --> APP_UI
+
+    APP_UI -- "1. Authentication Request" --> AUTH_MODULE
+    APP_UI -- "2. Profile Management Actions" --> PROFILE_MGR
+    APP_UI -- "3. Vault Operations" --> VAULT_MGR
+
+    AUTH_MODULE -- "Reads AppData for profiles" --> SETTINGS_MGR
+    SETTINGS_MGR -- "Provides AppData" --> APP_CONFIG_FILE
+
+    subgraph Authentication & Key Derivation Flow
+        AUTH_MODULE -- "Master Password, Salt, Iterations" --> CRYPTO_MGR::derive_key
+        CRYPTO_MGR::derive_key -- "Derived Vault Encryption Key (VEK)" --> AUTH_MODULE
+    end
+
+    subgraph OS-Bound VEK Storage/Retrieval
+        AUTH_MODULE -- "VEK, Profile ID (Encrypt Bound)" --> OS_SECURITY
+        OS_SECURITY -- "Encrypted VEK Blob" --> AUTH_MODULE
+        AUTH_MODULE -- "Store Encrypted VEK Blob" --> SETTINGS_MGR
+        SETTINGS_MGR -- "Writes Encrypted VEK Blob" --> APP_CONFIG_FILE
+
+        APP_CONFIG_FILE -- "Reads Encrypted VEK Blob" --> SETTINGS_MGR
+        SETTINGS_MGR -- "Encrypted VEK Blob" --> AUTH_MODULE
+        AUTH_MODULE -- "Encrypted VEK Blob, Profile ID (Decrypt Bound)" --> OS_SECURITY
+        OS_SECURITY -- "Decrypted VEK / OS Prompt" --> AUTH_MODULE
+    end
+
+    AUTH_MODULE -- "Authenticated VEK" --> VAULT_MGR
+    AUTH_MODULE -- "Authenticated VEK" --> PROFILE_MGR
+
+    subgraph Vault Data Encryption/Decryption
+        VAULT_MGR -- "Plaintext Data, VEK, Nonce, AAD" --> CRYPTO_MGR::encrypt
+        CRYPTO_MGR::encrypt -- "Encrypted Data, Nonce" --> VAULT_MGR
+        VAULT_MGR -- "Stores Encrypted Data, Nonce" --> VAULT_FILES
+
+        VAULT_FILES -- "Reads Encrypted Data, Nonce" --> VAULT_MGR
+        VAULT_MGR -- "Encrypted Data, Nonce, VEK, AAD" --> CRYPTO_MGR::decrypt
+        CRYPTO_MGR::decrypt -- "Plaintext Data" --> VAULT_MGR
+    end
+
+    PROFILE_MGR -- "Updates Profile Data" --> SETTINGS_MGR
+    SETTINGS_MGR -- "Saves Updated AppData" --> APP_CONFIG_FILE

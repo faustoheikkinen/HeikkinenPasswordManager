@@ -1,3 +1,5 @@
+// crates/password_core/src/error.rs
+
 use thiserror::Error;
 use argon2::Error as ArgonLibError; // For errors directly from argon2 calculations
 use argon2::password_hash::Error as ArgonPasswordHashError; // For errors from password_hash utilities like SaltString

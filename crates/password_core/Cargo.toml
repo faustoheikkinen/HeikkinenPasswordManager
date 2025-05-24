@@ -1,5 +1,4 @@
-# I:\_Dev\HeikkinenPasswordManager\crates\password_core\Cargo.toml
-
+# // crates/password_core/Cargo.toml
 [package]
 name = "password_core"
 version = "0.1.0"

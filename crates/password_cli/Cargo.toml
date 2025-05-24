@@ -1,3 +1,4 @@
+# // crates/password_cli/Cargo.toml
 [package]
 name = "password_cli"
 version = "0.1.0"

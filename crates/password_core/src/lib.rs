@@ -1,3 +1,5 @@
+// crates/password_core/src/lib.rs
+
 pub mod crypto;
 pub mod data_types; // Make sure this is present if you use data_types.rs
 pub mod error;
