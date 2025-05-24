@@ -1,13 +1,56 @@
 erDiagram
-    "App User Profile" {
-        UUID id PK
+    AppData ||--|| GeneralSettings : "has"
+    AppData ||--o{ AppUserProfile : "manages"
+    Vault ||--o{ VaultEntry : "contains"
+    Vault ||--|| VaultSettings : "has"
+    VaultEntry ||--o{ CustomField : "includes"
+
+    AppData {
+        Uuid last_active_profile_id "Optional"
+        string theme
+        string language
+    }
+
+    GeneralSettings {
+        Uuid last_active_profile_id "Optional"
+        string theme
+        string language
+    }
+
+    AppUserProfile {
+        Uuid id PK "Profile ID"
         string name
         string vault_file_path
-        string encrypted_master_key_blob "OS-bound encrypted VEK"
-        timestamp last_access_timestamp
-        boolean is_admin "Manager Role"
-        string vault_salt "KDF salt for vault"
-        int kdf_iterations "KDF iterations for vault"
+        string encrypted_master_key_blob "Optional, Base64 VEK"
+        DateTime_Utc last_access_timestamp "Optional"
+        bool is_admin "Optional"
     }
-    
-    "App Configuration File" ||--o{ "App User Profile" : contains
+
+    Vault {
+        string salt "Base64 KDF salt"
+        u32 iterations "KDF iterations"
+        DateTime_Utc created_at
+        DateTime_Utc updated_at
+    }
+
+    VaultEntry {
+        Uuid id PK "Entry ID"
+        string name
+        string username
+        string encrypted_password "AES-256"
+        string url "Optional"
+        string notes "Optional"
+        string tags "Vec<String>"
+        DateTime_Utc created_at
+        DateTime_Utc updated_at
+    }
+
+    VaultSettings {
+        u32 auto_lock_timeout_minutes
+        bool require_pin_or_biometric_unlock
+    }
+
+    CustomField {
+        string name
+        string encrypted_value "AES-256"
+    }
