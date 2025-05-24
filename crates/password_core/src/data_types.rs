@@ -1,8 +1,11 @@
 // crates/password_core/src/data_types.rs
 
-// --- Removed incorrect imports that tried to reference 'password_core' from within itself. ---
-// These types are defined *in this file*, or imported from external crates.
-// For example, this file defines EncryptedVault, so it doesn't import it from 'password_core::data_types'.
+//! This module defines the core data structures used throughout the Heikkinen Password Manager.
+//! It includes types for handling sensitive data securely (`PasswordBytes`),
+//! representing individual password entries, notes, and the overall encrypted vault structure.
+//!
+//! Special attention is given to the `Zeroize` trait for ensuring sensitive data is
+//! securely erased from memory when no longer needed.
 
 use zeroize::{Zeroize, ZeroizeOnDrop};
 use uuid::Uuid;
@@ -12,12 +15,17 @@ use serde::de::Error as SerdeError;
 use std::fmt;
 use base64::{engine::general_purpose, Engine as _};
 
-/// A wrapper struct for sensitive byte arrays that implements Zeroize and custom Serde.
-/// This replaces the functionality of secrecy::Secret<Vec<u8>>.
+/// A wrapper struct for sensitive byte arrays (e.g., passwords, keys) that
+/// automatically zeroes out its contents when dropped or explicitly requested.
+///
+/// This helps prevent sensitive data from lingering in memory. It also includes
+/// custom `Serialize` and `Deserialize` implementations to handle Base64 encoding/decoding
+/// for storage, and a redacted `Debug` implementation for safety.
 #[derive(Clone)]
 pub struct PasswordBytes(pub Vec<u8>);
 
 impl Zeroize for PasswordBytes {
+    /// Zeroes out the underlying byte vector, filling it with zeros.
     fn zeroize(&mut self) {
         self.0.zeroize();
     }
@@ -25,49 +33,53 @@ impl Zeroize for PasswordBytes {
 
 impl ZeroizeOnDrop for PasswordBytes {}
 
-// Implement Debug trait to redact sensitive data from debug output.
+/// Implements the `Debug` trait to prevent sensitive data from being printed
+/// in debug output.
 impl fmt::Debug for PasswordBytes {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "PasswordBytes([REDACTED])")
     }
 }
 
-// Manual implementation of Serialize for PasswordBytes.
+/// Implements custom serialization for `PasswordBytes`.
+///
+/// The inner `Vec<u8>` is Base64 encoded into a string before serialization,
+/// making it safe for text-based formats like JSON.
 impl Serialize for PasswordBytes {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: Serializer,
     {
-        // Use the new base64::Engine API for encoding.
         let encoded = general_purpose::STANDARD.encode(&self.0);
         serializer.serialize_str(&encoded)
     }
 }
 
-// Manual implementation of Deserialize for PasswordBytes.
+/// Implements custom deserialization for `PasswordBytes`.
+///
+/// It expects a Base64 encoded string and decodes it back into a `Vec<u8>`.
 impl<'de> Deserialize<'de> for PasswordBytes {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: Deserializer<'de>,
     {
-        // Deserialize from a string (which we expect to be base64).
         let s = String::deserialize(deserializer)?;
-        // Use the new base64::Engine API for decoding.
         let decoded = general_purpose::STANDARD.decode(s.as_bytes()).map_err(SerdeError::custom)?;
         Ok(PasswordBytes(decoded))
     }
 }
 
-// PartialEq for PasswordBytes (can compare inner Vec<u8> directly).
+/// Implements equality comparison for `PasswordBytes`, comparing their inner byte vectors.
 impl PartialEq for PasswordBytes {
     fn eq(&self, other: &Self) -> bool {
         self.0 == other.0
     }
 }
+/// Implements `Eq` for `PasswordBytes`, signifying that `PartialEq` implies a total equivalence relation.
 impl Eq for PasswordBytes {}
 
 
-/// Enum to categorize different types of credentials.
+/// An enumeration to categorize different types of credentials a password entry might represent.
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub enum CredentialType {
     Website,
@@ -81,60 +93,99 @@ pub enum CredentialType {
 }
 
 impl Default for CredentialType {
+    /// Returns `CredentialType::Website` as the default type.
     fn default() -> Self {
         CredentialType::Website
     }
 }
 
-/// Represents a specific version of a password.
+/// Represents a specific version of a password within a `PasswordEntry`.
+/// This allows for password history and tracking of changes.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PasswordVersion {
-    // Now uses our custom PasswordBytes type.
+    /// The password bytes, securely handled by `PasswordBytes`.
     pub password: PasswordBytes,
+    /// The version number of this password (e.g., 1, 2, 3).
     pub version: u32,
+    /// A flag indicating if this is the currently active password version.
     pub is_current: bool,
+    /// The timestamp when this password version was created.
     pub created_at: DateTime<Utc>,
+    /// The last time this specific password version was accessed (optional).
     pub last_accessed_at: Option<DateTime<Utc>>,
 }
 
 impl Zeroize for PasswordVersion {
+    /// Zeroes out the sensitive password data within this version.
     fn zeroize(&mut self) {
         self.password.zeroize();
     }
 }
 
-/// The main data structure representing a single password record.
+/// The main data structure representing a single password record in the vault.
+/// It contains details about the credential, its history, and associated notes.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PasswordEntry {
+    /// A unique identifier for this password entry.
     pub id: Uuid,
+    /// The human-readable name of the entry (e.g., "Google", "My Bank Account").
     pub name: String,
+    /// The URL associated with the credential (optional).
     pub url: Option<String>,
+    /// The username for this credential (optional).
     pub username: Option<String>,
+    /// A list of `PasswordVersion`s, storing the current and historical passwords.
     pub password_versions: Vec<PasswordVersion>,
+    /// Any additional notes or information (optional).
     pub notes: Option<String>,
+    /// The company or service associated with the credential (optional).
     pub company: Option<String>,
+    /// A custom key-value field for extra metadata (optional).
     pub custom_key: Option<String>,
+    /// The type of credential this entry represents.
     pub credential_type: CredentialType,
+    /// The timestamp when this entry was created.
     pub created_at: DateTime<Utc>,
+    /// The timestamp when this entry was last updated.
     pub updated_at: DateTime<Utc>,
 }
 
 impl PasswordEntry {
-    /// Returns the current password if available.
+    /// Returns an immutable reference to the currently active password if available.
+    ///
+    /// # Returns
+    ///
+    /// `Some(&PasswordBytes)` if a current password exists, otherwise `None`.
     pub fn get_current_password(&self) -> Option<&PasswordBytes> {
         self.password_versions.iter()
             .find(|v| v.is_current)
             .map(|v| &v.password)
     }
 
-    /// Returns a mutable reference to the current password if available.
+    /// Returns a mutable reference to the currently active password if available.
+    ///
+    /// # Returns
+    ///
+    /// `Some(&mut PasswordBytes)` if a current password exists, otherwise `None`.
     pub fn get_current_password_mut(&mut self) -> Option<&mut PasswordBytes> {
         self.password_versions.iter_mut()
             .find(|v| v.is_current)
             .map(|v| &mut v.password)
     }
 
-    /// Creates a new PasswordEntry with default values and a new UUID.
+    /// Creates a new `PasswordEntry` with a unique ID and initial details.
+    ///
+    /// The `created_at` and `updated_at` timestamps are set to the current UTC time.
+    /// If an `initial_password` is provided, it's added as the first and current `PasswordVersion`.
+    ///
+    /// # Arguments
+    ///
+    /// * `name` - The name of the new entry.
+    /// * `initial_password` - An optional `PasswordBytes` representing the first password for this entry.
+    ///
+    /// # Returns
+    ///
+    /// A new `PasswordEntry` instance.
     pub fn new(name: String, initial_password: Option<PasswordBytes>) -> Self {
         let now = Utc::now();
         let mut versions = Vec::new();
@@ -163,38 +214,46 @@ impl PasswordEntry {
         }
     }
 
-    /// Deactivates the current password version, if one exists.
-    /// After this call, no password version in this entry will be marked as current.
+    /// Deactivates the currently active password version within this entry.
+    ///
+    /// After this call, no `PasswordVersion` in this entry will be marked as current.
+    /// The `updated_at` timestamp of the entry is also updated.
     pub fn deactivate_current_password(&mut self) {
         if let Some(current_version) = self.password_versions.iter_mut().find(|v| v.is_current) {
             current_version.is_current = false;
         }
-        self.updated_at = Utc::now(); // Mark the entry as updated
+        self.updated_at = Utc::now();
     }
 
-    /// Sets a specific password version as the current one.
-    /// All other password versions will be marked as not current.
-    /// Returns true if the version was found and set as current, false otherwise.
+    /// Sets a specific `PasswordVersion` (identified by its version number) as the current one.
+    ///
+    /// All other password versions within this entry will be marked as not current.
+    /// The `updated_at` timestamp of the entry is updated if the operation is successful.
+    ///
+    /// # Arguments
+    ///
+    /// * `version_number` - The `version` field of the `PasswordVersion` to set as current.
+    ///
+    /// # Returns
+    ///
+    /// `true` if the version was found and successfully set as current; `false` otherwise.
     pub fn set_version_as_current(&mut self, version_number: u32) -> bool {
-        // First, check if the target version exists at all.
         let target_idx = self.password_versions.iter().position(|v| v.version == version_number);
 
         if let Some(idx) = target_idx {
-            // Target version was found, so proceed with modification.
-            // Iterate through all versions to set the correct is_current flags.
             for (i, version) in self.password_versions.iter_mut().enumerate() {
-                version.is_current = i == idx; // Set true only for the target index, false for others
+                version.is_current = i == idx;
             }
-            self.updated_at = Utc::now(); // Mark the entry as updated
-            true // Successfully updated
+            self.updated_at = Utc::now();
+            true
         } else {
-            // Target version was not found, do nothing and return false.
             false
         }
     }
 }
 
 impl Zeroize for PasswordEntry {
+    /// Zeroes out all sensitive `PasswordBytes` contained within the entry's password versions.
     fn zeroize(&mut self) {
         for version in &mut self.password_versions {
             version.zeroize();
@@ -202,33 +261,45 @@ impl Zeroize for PasswordEntry {
     }
 }
 
-/// Represents the entire encrypted vault data stored in a file.
-/// This acts as the container for all PasswordEntry items after they are encrypted.
-/// It also stores the master key salt needed for deriving the master key.
+/// Represents the entire encrypted vault data as it's stored in a file.
+///
+/// This struct acts as the top-level container for the encrypted payload
+/// and the cryptographic metadata (salt, nonce) required for decryption.
 #[derive(Debug, Serialize, Deserialize)]
 pub struct EncryptedVault {
-    pub salt: Vec<u8>, // Salt used for master password derivation
-    pub encrypted_payload: Vec<u8>, // The encrypted ciphertext (data + tag)
-    pub nonce: Vec<u8>, // The nonce used for this encryption
-    pub vault_version: u32, // Version of the vault's internal data structure format
+    /// The cryptographic salt used for master password derivation.
+    pub salt: Vec<u8>,
+    /// The actual encrypted ciphertext (contains the serialized `Vault` data and an authentication tag).
+    pub encrypted_payload: Vec<u8>,
+    /// The nonce used for the encryption of the `encrypted_payload`.
+    pub nonce: Vec<u8>,
+    /// A version number for the vault's internal data structure format.
+    /// This allows for future migrations if the data format changes.
+    pub vault_version: u32,
 }
 
-/// Represents a simple note entry in the vault.
+/// Represents a simple secure note entry in the vault.
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct Note {
+    /// A unique identifier for the note.
     pub id: String,
+    /// The content of the note.
     pub content: String,
-    // You might add fields like created_at: DateTime<Utc>, updated_at: DateTime<Utc> later
+    // Future: pub created_at: DateTime<Utc>, pub updated_at: DateTime<Utc>
 }
 
+/// Unit tests for the `data_types` module.
+///
+/// These tests verify the correct behavior of data structures, their serialization/deserialization,
+/// secure memory handling (`Zeroize`), and the methods implemented on `PasswordEntry`.
 #[cfg(test)]
 mod tests {
-    use super::*; // Import items from the parent module (data_types.rs)
+    use super::*;
     use serde_json;
-    use std::time::Duration; // For testing time differences
-    use chrono::Duration as ChronoDuration; // For chrono durations
+    use std::time::Duration;
+    use chrono::Duration as ChronoDuration;
 
-    // Helper function to create a new password version
+    /// Helper function to create a new `PasswordVersion` for testing.
     fn create_password_version(bytes: Vec<u8>, version: u32, is_current: bool) -> PasswordVersion {
         PasswordVersion {
             password: PasswordBytes(bytes),
@@ -252,6 +323,11 @@ mod tests {
         assert_eq!(pb.0, vec![10, 20, 30, 40]);
 
         pb.zeroize();
+        // After zeroize, the inner vector is cleared.
+        // It's important to understand that `zeroize` for `Vec<u8>` generally clears the memory,
+        // but it might also truncate the vector to 0 length. The `Zeroize` trait itself for `Vec<T>`
+        // often calls `clear()` then `shrink_to_fit()`, which is what leads to `len()` being 0.
+        // For `ZeroizeOnDrop`, it's primarily about ensuring the *memory* is zeroed before deallocation.
         assert_eq!(pb.0.len(), 0);
         assert!(pb.0.is_empty());
 
@@ -275,8 +351,6 @@ mod tests {
         let pb = PasswordBytes(original_bytes.clone());
 
         let serialized = serde_json::to_string(&pb).expect("Failed to serialize PasswordBytes");
-        // println!("Serialized PasswordBytes: {}", serialized); // Debug print removed
-
         let expected_base64 = general_purpose::STANDARD.encode(&original_bytes);
         let expected_json = format!("\"{}\"", expected_base64);
 
@@ -288,7 +362,6 @@ mod tests {
         assert_eq!(deserialized_pb.0, original_bytes);
     }
 
-    // NEW TEST: Test PartialEq for PasswordBytes
     #[test]
     fn test_password_bytes_equality() {
         let pb1 = PasswordBytes(vec![1, 2, 3]);
@@ -351,7 +424,6 @@ mod tests {
         entry.custom_key = Some("CustomVal".to_string());
 
         let serialized = serde_json::to_string(&entry).expect("Failed to serialize PasswordEntry");
-        // println!("Serialized PasswordEntry: {}", serialized); // Debug print removed
 
         let deserialized_entry: PasswordEntry = serde_json::from_str(&serialized)
             .expect("Failed to deserialize PasswordEntry");
@@ -365,7 +437,6 @@ mod tests {
         assert_eq!(deserialized_entry.company, entry.company);
         assert_eq!(deserialized_entry.custom_key, entry.custom_key);
 
-        // For timestamps, allow a small delta for comparison due to serialization/deserialization precision
         let time_diff = (deserialized_entry.created_at - entry.created_at).abs();
         assert!(time_diff < ChronoDuration::milliseconds(1), "Created_at differs too much: {:?}", time_diff);
         let time_diff = (deserialized_entry.updated_at - entry.updated_at).abs();
@@ -400,19 +471,16 @@ mod tests {
     fn test_password_entry_multiple_versions() {
         let mut entry = PasswordEntry::new(
             "Multi-version Site".to_string(),
-            Some(PasswordBytes(vec![1, 2, 3])), // Initial password using PasswordBytes
+            Some(PasswordBytes(vec![1, 2, 3])),
         );
 
-        // Add some historical versions
-        entry.password_versions[0].is_current = false; // Old version is no longer current
-        entry.password_versions.push(create_password_version(vec![4, 5, 6], 2, true)); // New current
+        entry.password_versions[0].is_current = false;
+        entry.password_versions.push(create_password_version(vec![4, 5, 6], 2, true));
 
-        // Add another old version for good measure
         entry.password_versions.push(create_password_version(vec![7, 8, 9], 3, false));
 
         assert_eq!(entry.password_versions.len(), 3);
 
-        // Verify that get_current_password finds the correct one
         let current_password = entry.get_current_password().expect("Should find current password");
         assert_eq!(current_password.0, vec![4, 5, 6]);
         assert_eq!(
@@ -421,12 +489,10 @@ mod tests {
             "Only one password version should be current"
         );
 
-        // Test mutable access and modification of the current password
         let mut_current_password = entry.get_current_password_mut().expect("Should get mutable current password");
         mut_current_password.0.push(10);
         assert_eq!(entry.get_current_password().unwrap().0, vec![4, 5, 6, 10]);
 
-        // Ensure other versions are untouched and remain not current
         assert_eq!(entry.password_versions[0].password.0, vec![1, 2, 3]);
         assert!(!entry.password_versions[0].is_current);
         assert_eq!(entry.password_versions[2].password.0, vec![7, 8, 9]);
@@ -441,50 +507,42 @@ mod tests {
         );
         let initial_updated_at = entry.updated_at;
 
-        // Simulate a small delay for time difference
         std::thread::sleep(Duration::from_millis(10));
 
-        // Update some fields
         entry.name = "Updated Name".to_string();
         entry.username = Some("new_user".to_string());
         entry.url = Some("http://newurl.com".to_string());
-        entry.updated_at = Utc::now(); // Manually update the timestamp
+        entry.updated_at = Utc::now();
 
         assert_eq!(entry.name, "Updated Name");
         assert_eq!(entry.username, Some("new_user".to_string()));
         assert_eq!(entry.url, Some("http://newurl.com".to_string()));
 
-        // Ensure updated_at has actually changed (allowing for some potential system time resolution)
         assert!(entry.updated_at > initial_updated_at);
         assert!((entry.updated_at - initial_updated_at).num_milliseconds() >= 10);
     }
-
 
     #[test]
     fn test_password_entry_deactivate_current_password() {
         let mut entry = PasswordEntry::new(
             "Site to deactivate".to_string(),
-            Some(PasswordBytes(vec![1, 2, 3])), // Initial password using PasswordBytes
+            Some(PasswordBytes(vec![1, 2, 3])),
         );
         let initial_updated_at = entry.updated_at;
 
-        // Ensure there is a current password initially
         assert!(entry.get_current_password().is_some());
         assert!(entry.password_versions[0].is_current);
 
-        std::thread::sleep(Duration::from_millis(10)); // Simulate time passing
+        std::thread::sleep(Duration::from_millis(10));
 
         entry.deactivate_current_password();
 
-        // After deactivation, no password should be current
         assert!(entry.get_current_password().is_none());
-        assert!(!entry.password_versions[0].is_current); // Explicitly check the flag
+        assert!(!entry.password_versions[0].is_current);
 
-        // Ensure updated_at has changed
         assert!(entry.updated_at > initial_updated_at);
 
-        // Test deactivating when no password is current
-        entry.deactivate_current_password(); // Should do nothing
+        entry.deactivate_current_password();
         assert!(entry.get_current_password().is_none());
     }
 
@@ -492,16 +550,14 @@ mod tests {
     fn test_password_entry_set_version_as_current() {
         let mut entry = PasswordEntry::new(
             "Site with versions".to_string(),
-            Some(PasswordBytes(vec![10])), // V1 current
+            Some(PasswordBytes(vec![10])),
         );
 
-        // Add some historical versions
-        entry.password_versions[0].is_current = false; // V1 not current
-        entry.password_versions.push(create_password_version(vec![20], 2, false)); // V2 not current
-        entry.password_versions.push(create_password_version(vec![30], 3, true)); // V3 current
-        entry.password_versions.push(create_password_version(vec![40], 4, false)); // V4 not current
+        entry.password_versions[0].is_current = false;
+        entry.password_versions.push(create_password_version(vec![20], 2, false));
+        entry.password_versions.push(create_password_version(vec![30], 3, true));
+        entry.password_versions.push(create_password_version(vec![40], 4, false));
 
-        // 1. Set an older version (2) as current
         let success = entry.set_version_as_current(2);
         assert!(success, "set_version_as_current(2) should return true");
 
@@ -513,10 +569,9 @@ mod tests {
         assert!(entry.password_versions[v2_idx].is_current, "Version 2 should be current directly");
 
         assert_eq!(entry.password_versions.iter().filter(|v| v.is_current).count(), 1, "Only one password version should be current");
-        let initial_updated_at_after_first_set = entry.updated_at; // Capture updated_at after a successful set
-        std::thread::sleep(Duration::from_millis(10)); // Simulate time passing
+        let initial_updated_at_after_first_set = entry.updated_at;
+        std::thread::sleep(Duration::from_millis(10));
 
-        // 2. Set a non-existent version
         let success_non_existent = entry.set_version_as_current(99);
         assert!(!success_non_existent, "set_version_as_current(99) should return false for non-existent version");
 
@@ -527,49 +582,42 @@ mod tests {
         assert_eq!(entry.password_versions.iter().filter(|v| v.is_current).count(), 1, "Only one password version should remain current");
     }
 
-    // NEW TEST: Test PasswordEntry::set_version_as_current when already current
     #[test]
     fn test_password_entry_set_already_current_version_as_current() {
         let mut entry = PasswordEntry::new(
             "Site with versions".to_string(),
-            Some(PasswordBytes(vec![10])), // V1 current
+            Some(PasswordBytes(vec![10])),
         );
-        entry.password_versions.push(create_password_version(vec![20], 2, false)); // V2 not current
+        entry.password_versions.push(create_password_version(vec![20], 2, false));
 
-        // Ensure V1 is current
         assert!(entry.password_versions.iter().find(|v| v.version == 1).unwrap().is_current);
 
         let initial_updated_at = entry.updated_at;
-        std::thread::sleep(Duration::from_millis(10)); // Simulate time passing
+        std::thread::sleep(Duration::from_millis(10));
 
-        // Set V1 as current (it already is)
         let success = entry.set_version_as_current(1);
         assert!(success, "set_version_as_current(1) for already current should return true");
 
         let current_password = entry.get_current_password();
         assert!(current_password.is_some());
-        assert_eq!(current_password.unwrap().0, vec![10]); // Should still be V1
+        assert_eq!(current_password.unwrap().0, vec![10]);
 
-        // Verify only one is current
         assert_eq!(entry.password_versions.iter().filter(|v| v.is_current).count(), 1);
         assert!(entry.password_versions.iter().find(|v| v.version == 1).unwrap().is_current);
 
-        // Ensure updated_at changed even if it was already current
         assert!(entry.updated_at > initial_updated_at);
     }
-
 
     #[test]
     fn test_encrypted_vault_serialization_deserialization() {
         let vault = EncryptedVault {
             salt: vec![10, 11, 12, 13, 14, 15],
             encrypted_payload: vec![20, 21, 22, 23, 24, 25, 26, 27],
-            nonce: vec![30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41], // Example nonce
+            nonce: vec![30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41],
             vault_version: 1,
         };
 
         let serialized = serde_json::to_string(&vault).expect("Failed to serialize EncryptedVault");
-        // println!("Serialized EncryptedVault: {}", serialized); // Debug print removed
 
         let deserialized_vault: EncryptedVault = serde_json::from_str(&serialized)
             .expect("Failed to deserialize EncryptedVault");
@@ -580,18 +628,13 @@ mod tests {
         assert_eq!(deserialized_vault.vault_version, vault.vault_version);
     }
 
-    // --- NEW TESTS FOR PasswordBytes DESERIALIZATION ERRORS ---
-
     #[test]
     fn test_password_bytes_deserialization_invalid_base64() {
-        // Attempt to deserialize an invalid base64 string
         let invalid_base64_str = "\"not-valid-base64!\"";
         let result: Result<PasswordBytes, serde_json::Error> = serde_json::from_str(invalid_base64_str);
 
         assert!(result.is_err(), "Deserialization should fail for invalid Base64 input");
         let err = result.unwrap_err();
-        // The error message for base64 decoding usually contains "Invalid symbol" or "Invalid byte".
-        // Let's check for these keywords, as the exact error string can be platform/version dependent.
         let error_msg = err.to_string();
         assert!(
             error_msg.contains("Invalid symbol") || error_msg.contains("Invalid byte") || error_msg.contains("Invalid character"),
@@ -599,21 +642,17 @@ mod tests {
         );
     }
 
-
     #[test]
     fn test_password_bytes_deserialization_non_string_input() {
-        // Attempt to deserialize non-string input (e.g., a number or boolean)
-        let non_string_input = "12345"; // This is valid JSON for an integer, but not for PasswordBytes
+        let non_string_input = "12345";
         let result: Result<PasswordBytes, serde_json::Error> = serde_json::from_str(non_string_input);
 
         assert!(result.is_err(), "Deserialization should fail for non-string input");
         let err = result.unwrap_err();
-        // The error indicates a type mismatch in Serde
         assert!(err.to_string().contains("invalid type: integer") || err.to_string().contains("expected a string"),
-                "Error message should indicate type mismatch: {}", err);
+                        "Error message should indicate type mismatch: {}", err);
     }
 
-    // NEW TEST: Test CredentialType Default
     #[test]
     fn test_credential_type_default() {
         assert_eq!(CredentialType::default(), CredentialType::Website);

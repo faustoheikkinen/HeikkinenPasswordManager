@@ -1,20 +1,41 @@
 // crates/password_core/src/lib.rs
 
+//! `password_core` is the foundational library for the Heikkinen Password Manager.
+//! It encapsulates all core logic, including cryptographic operations,
+//! data structure definitions for vaults and entries, error handling,
+//! and application settings management.
+//!
+//! This crate is designed to be platform-agnostic, providing the secure
+//! backend services that higher-level UIs or CLIs can build upon.
+
+
 pub mod crypto;
 pub mod data_types;
 pub mod error;
-pub mod settings_manager; // Declare the settings_manager module
+pub mod settings_manager;
 
-// Re-export constants and types from crypto for easier access
-pub use crypto::{SALT_LEN, NONCE_LEN, KEY_LEN, EncryptionKey}; // EncryptionKey is now data_types::PasswordBytes
-pub use error::PasswordManagerError; // Re-export your custom error type
-pub use settings_manager::{AppConfig, AppUserProfile}; // FIX: Changed AppSettings to AppConfig
+// Re-export constants and types from crypto for easier access.
+// These allow consumers of `password_core` to use important cryptographic
+// parameters and the shared `EncryptionKey` type without needing to
+// explicitly import from the `crypto` module.
+pub use crypto::{SALT_LEN, NONCE_LEN, KEY_LEN, EncryptionKey};
+// Re-export your custom error type for consistent error handling across the application.
+pub use error::PasswordManagerError;
+// Re-export configuration and user profile types from `settings_manager` for application-wide use.
+pub use settings_manager::{AppConfig, AppUserProfile};
 
+/// Unit tests for the `password_core` crate's main functionalities.
+///
+/// These tests primarily cover the integration and correctness of cryptographic operations
+/// like key derivation, encryption, and decryption, ensuring the core security
+/// features work as expected.
 #[cfg(test)]
 mod tests {
     use super::*;
     use crate::crypto::{generate_random_bytes, derive_key_from_password, encrypt, decrypt};
 
+    /// Tests the `generate_random_bytes` function to ensure it produces
+    /// bytes of the requested length and that they are not all zeros.
     #[test]
     fn test_generate_random_bytes() {
         let len = 32;
@@ -27,6 +48,8 @@ mod tests {
         assert_eq!(bytes_small.len(), len_small);
     }
 
+    /// Tests `derive_key_from_password` when no salt is provided,
+    /// ensuring that unique salts and keys are generated each time.
     #[test]
     fn test_derive_key_from_password_new_salt() {
         let password = b"my_master_password";
@@ -39,6 +62,8 @@ mod tests {
         assert_ne!(key1.0, key2.0, "Different keys should be derived with different salts");
     }
 
+    /// Tests `derive_key_from_password` with a fixed salt,
+    /// ensuring that the same password and salt always produce the same key.
     #[test]
     fn test_derive_key_from_password_fixed_salt() {
         let password = b"my_master_password";
@@ -50,6 +75,9 @@ mod tests {
         assert_eq!(key1.0, key2.0, "Same key should be derived with the same password and fixed salt");
     }
 
+    /// Tests the full encryption and decryption cycle,
+    /// verifying that plaintext can be securely encrypted and then correctly decrypted.
+    /// Also tests with an empty plaintext to ensure proper handling.
     #[test]
     fn test_encrypt_decrypt_cycle() {
         let password = b"strong_master_password";
