@@ -23,13 +23,14 @@ serde = { version = "1.0", features = ["derive"] } # For serialization/deseriali
 serde_json = "1.0"           # For serializing/deserializing to JSON
 base64 = "0.22"              # For encoding/decoding binary data (e.g., encrypted payloads)
 
+
 # Unique identifiers and timestamps
 uuid = { version = "1.8", features = ["v4", "serde"] } # "v4" for Uuid::new_v4, "serde" for serialization/deserialization
 chrono = { version = "0.4", features = ["serde"] } # "serde" for DateTime serialization
 
 # Security: Zeroizing sensitive data from memory
 zeroize = { version = "1.6", features = ["derive"] } # "derive" for #[derive(Zeroize, ZeroizeOnDrop)]
-keyring = "2.0.2" # Or the latest stable version if newer
+keyring = { version = "3", features = ["apple-native", "windows-native", "sync-secret-service"] }
 
 # Settings Manager / File IO
 dirs-next = "1.0"            # NEW: For cross-platform app data directory detection
@@ -39,6 +40,9 @@ dirs-next = "1.0"            # NEW: For cross-platform app data directory detect
 clap = { version = "4.5", features = ["derive"] } # For command-line argument parsing
 rpassword = "7.4"            # For secure password input without echoing
 comfy-table = "7.1"          # For displaying tabular data in the CLI
+
+#keyring implementations needs it
+once_cell = "1.19.0" # For Lazy static in tests
 
 [dev-dependencies]
 colored = "2.2.0"

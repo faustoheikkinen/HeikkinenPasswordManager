@@ -43,6 +43,31 @@ pub fn generate_random_bytes(len: usize) -> Vec<u8> {
     bytes
 }
 
+/// Derives a cryptographically secure random encryption key of KEY_LEN bytes.
+///
+/// This is specifically for generating a new, truly random VEK when a user
+/// first sets up their master password and chooses to store the VEK via OS-binding.
+///
+/// # Returns
+///
+/// A `Result` containing:
+/// * `Ok(EncryptionKey)` - A new, randomly generated `EncryptionKey`.
+/// * `Err(PasswordManagerError)` - If key generation fails (e.g., due to an internal error
+///                                 in `generate_random_bytes` not producing the correct length).
+pub fn derive_random_encryption_key() -> Result<EncryptionKey, PasswordManagerError> {
+    let key_bytes = generate_random_bytes(KEY_LEN);
+    if key_bytes.len() != KEY_LEN {
+        return Err(PasswordManagerError::KeyDerivationError(
+            format!("Generated random key has incorrect length: expected {}, got {}", KEY_LEN, key_bytes.len())
+        ));
+    }
+    // FIX: Use PasswordBytes constructor directly
+    Ok(PasswordBytes(key_bytes))
+}
+
+
+
+
 /// Derives a strong encryption key from a master password using Argon2id.
 ///
 /// This function uses Argon2id, a memory-hard key derivation function,
