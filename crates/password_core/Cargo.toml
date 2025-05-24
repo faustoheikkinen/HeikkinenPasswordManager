@@ -29,6 +29,7 @@ chrono = { version = "0.4", features = ["serde"] } # "serde" for DateTime serial
 
 # Security: Zeroizing sensitive data from memory
 zeroize = { version = "1.6", features = ["derive"] } # "derive" for #[derive(Zeroize, ZeroizeOnDrop)]
+keyring = "2.0.2" # Or the latest stable version if newer
 
 # Settings Manager / File IO
 dirs-next = "1.0"            # NEW: For cross-platform app data directory detection

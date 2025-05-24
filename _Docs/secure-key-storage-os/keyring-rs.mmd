@@ -1,0 +1,35 @@
+graph TD
+    subgraph External Actors
+        OS_USER_LOGIN[Logged-in OS User]
+        MANAGER_APP_USER("Manager App User")
+        REGULAR_APP_USER("Regular App User")
+        OS_SECURITY["OS Security Services (DPAPI, Keychain, Keyring)"]
+    end
+
+    subgraph Your Password Manager Application
+        APP_UI["App User Interface"]
+        AUTH_MODULE["Authentication Module"]
+        PROFILE_MGR["Profile Management Module"]
+        VAULT_MGR["Vault Management Module"]
+    end
+
+    subgraph Data Stores
+        APP_CONFIG_FILE["App Configuration File (config.json)"]
+        VAULT_FILES["Vault Files (.vault)"]
+    end
+
+    OS_USER_LOGIN -- Launch App --> APP_UI
+    APP_UI -- Master Pass / PIN / Biometric --> AUTH_MODULE
+    AUTH_MODULE -- Request VEK / Store VEK --> OS_SECURITY
+    OS_SECURITY -- Provides VEK / Stores VEK --> AUTH_MODULE
+
+    APP_UI -- Profile Selection / Admin Actions --> PROFILE_MGR
+    PROFILE_MGR -- Read / Write Profile Data --> APP_CONFIG_FILE
+    APP_CONFIG_FILE -- Contains Profile List --> APP_UI
+
+    APP_UI -- Open / Save Data --> VAULT_MGR
+    VAULT_MGR -- Read / Write Encrypted Data --> VAULT_FILES
+    VAULT_MGR -- Read / Write Metadata --> APP_CONFIG_FILE
+
+    MANAGER_APP_USER -- Admin Actions --> PROFILE_MGR
+    REGULAR_APP_USER -- Vault Access --> VAULT_MGR
