@@ -1,5 +1,4 @@
-// Re-export constants from crypto for easier access
-// pub use crypto::{SALT_LEN, NONCE_LEN, KEY_LEN, EncryptionKey};
+// crates/password_core/src/crypto.rs
 
 use argon2::{
     password_hash::{rand_core::OsRng, rand_core::RngCore, SaltString},
@@ -30,19 +29,31 @@ pub fn generate_random_bytes(len: usize) -> Vec<u8> {
 ///
 /// Returns the derived 32-byte key and the salt used, or a `PasswordManagerError` if derivation fails.
 pub fn derive_key_from_password(password: &[u8], salt: Option<&[u8]>) -> Result<(EncryptionKey, Vec<u8>), PasswordManagerError> {
+    // Validate master password: It cannot be empty
+    if password.is_empty() {
+        return Err(PasswordManagerError::InvalidInput("Master password cannot be empty.".to_string()));
+    }
+
     let actual_salt_bytes = match salt {
         Some(s) => {
+            // Validate provided salt length
             if s.len() != SALT_LEN {
                 return Err(PasswordManagerError::Other(format!("Provided salt must be exactly {} bytes long.", SALT_LEN)));
             }
             s.to_vec()
         },
-        None => generate_random_bytes(SALT_LEN), // Generate new salt if not provided
+        None => {
+            let generated_salt = generate_random_bytes(SALT_LEN);
+            // Defensive check for generated salt (should not be empty if SALT_LEN > 0)
+            if generated_salt.is_empty() {
+                return Err(PasswordManagerError::InvalidInput("Generated salt cannot be empty (internal error).".to_string()));
+            }
+            generated_salt
+        },
     };
 
-    // Note: _salt_string is not strictly needed for argon2_raw.hash_password_into,
-    // but SaltString::encode_b64 is a useful utility if you want to store the salt as a string.
-    // We'll keep it for now as a placeholder or for potential future use in debug/display.
+    // This `SaltString::encode_b64` can return an error if `actual_salt_bytes`
+    // contains invalid characters, though this is highly unlikely for random bytes.
     let _salt_string = SaltString::encode_b64(&actual_salt_bytes)
         .map_err(|e| PasswordManagerError::Argon2PasswordHashError(e))?;
 
@@ -51,14 +62,15 @@ pub fn derive_key_from_password(password: &[u8], salt: Option<&[u8]>) -> Result<
     // m_cost (memory cost): 65536 (2^16 KB)
     // t_cost (time cost): 3 (iterations)
     // p_cost (parallelism): 1
+    // Some(KEY_LEN) sets the output key length to 32 bytes.
     let params = argon2::Params::new(65536, 3, 1, Some(KEY_LEN))
-        .map_err(|e| PasswordManagerError::Argon2CalculationError(e))?;
+        .map_err(|e| PasswordManagerError::Argon2CalculationError(e))?; // Map argon2::Error to Argon2CalculationError
 
     let argon2_raw = Argon2::new(argon2::Algorithm::Argon2id, argon2::Version::default(), params);
 
     let mut derived_key_bytes = [0u8; KEY_LEN]; // Fixed-size array for the output key
     argon2_raw.hash_password_into(password, &actual_salt_bytes, &mut derived_key_bytes)
-        .map_err(|e| PasswordManagerError::Argon2CalculationError(e))?;
+        .map_err(|e| PasswordManagerError::Argon2CalculationError(e))?; // Map argon2::Error to Argon2CalculationError
 
     let key = EncryptionKey::from(derived_key_bytes); // Direct conversion from [u8; 32] to Key
 
@@ -73,7 +85,7 @@ pub fn encrypt(key: &EncryptionKey, plaintext: &[u8]) -> Result<(Vec<u8>, Vec<u8
     let nonce = Nonce::from_slice(&nonce_bytes); // Convert Vec<u8> to Fixed-size Nonce
 
     let ciphertext = cipher.encrypt(nonce, plaintext)
-        .map_err(|e| PasswordManagerError::EncryptionError(e))?;
+        .map_err(|e| PasswordManagerError::EncryptionError(e))?; // Map aead::Error to EncryptionError
 
     Ok((ciphertext, nonce_bytes))
 }
@@ -90,7 +102,7 @@ pub fn decrypt(key: &EncryptionKey, ciphertext: &[u8], nonce_bytes: &[u8]) -> Re
     let nonce = Nonce::from_slice(nonce_bytes); // Convert slice to Fixed-size Nonce
 
     let plaintext = cipher.decrypt(nonce, ciphertext)
-        .map_err(|_e| PasswordManagerError::DecryptionFailed)?; // Use DecryptionFailed for decryption errors
+        .map_err(|_e| PasswordManagerError::DecryptionFailed)?; // Map decryption failure to DecryptionFailed
 
     Ok(plaintext)
 }

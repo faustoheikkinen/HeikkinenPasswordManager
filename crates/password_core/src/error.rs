@@ -25,6 +25,8 @@ pub enum PasswordManagerError {
     Base64DecodeError(#[from] DecodeError),
     #[error("UUID parsing failed: {0}")]
     UuidParseError(#[from] UuidError),
+    #[error("Invalid input: {0}")] // New variant for validation errors
+    InvalidInput(String),
     #[error("Other error: {0}")]
     Other(String),
 }
@@ -40,6 +42,7 @@ impl PartialEq for PasswordManagerError {
             (PasswordManagerError::InvalidVaultData(s1), PasswordManagerError::InvalidVaultData(s2)) => s1 == s2,
             (PasswordManagerError::Base64DecodeError(e1), PasswordManagerError::Base64DecodeError(e2)) => e1.to_string() == e2.to_string(),
             (PasswordManagerError::UuidParseError(e1), PasswordManagerError::UuidParseError(e2)) => e1.to_string() == e2.to_string(),
+            (PasswordManagerError::InvalidInput(s1), PasswordManagerError::InvalidInput(s2)) => s1 == s2, // Compare messages
             (PasswordManagerError::Other(s1), PasswordManagerError::Other(s2)) => s1 == s2,
             _ => false,
         }

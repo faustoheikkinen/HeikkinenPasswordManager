@@ -1,3 +1,9 @@
+// crates/password_core/src/data_types.rs
+
+// --- Removed incorrect imports that tried to reference 'password_core' from within itself. ---
+// These types are defined *in this file*, or imported from external crates.
+// For example, this file defines EncryptedVault, so it doesn't import it from 'password_core::data_types'.
+
 use zeroize::{Zeroize, ZeroizeOnDrop};
 use uuid::Uuid;
 use chrono::{DateTime, Utc};
@@ -202,13 +208,14 @@ impl Zeroize for PasswordEntry {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct EncryptedVault {
     pub salt: Vec<u8>, // Salt used for master password derivation
-    pub encrypted_payload: Vec<u8>, // The encrypted blob of all PasswordEntry data
+    pub encrypted_payload: Vec<u8>, // The encrypted ciphertext (data + tag)
+    pub nonce: Vec<u8>, // The nonce used for this encryption
     pub vault_version: u32, // Version of the vault's internal data structure format
 }
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use super::*; // Import items from the parent module (data_types.rs)
     use serde_json;
     use std::time::Duration; // For testing time differences
     use chrono::Duration as ChronoDuration; // For chrono durations
@@ -271,6 +278,17 @@ mod tests {
             .expect("Failed to deserialize PasswordBytes");
 
         assert_eq!(deserialized_pb.0, original_bytes);
+    }
+
+    // NEW TEST: Test PartialEq for PasswordBytes
+    #[test]
+    fn test_password_bytes_equality() {
+        let pb1 = PasswordBytes(vec![1, 2, 3]);
+        let pb2 = PasswordBytes(vec![1, 2, 3]);
+        let pb3 = PasswordBytes(vec![4, 5, 6]);
+
+        assert_eq!(pb1, pb2);
+        assert_ne!(pb1, pb3);
     }
 
     #[test]
@@ -377,7 +395,7 @@ mod tests {
             Some(PasswordBytes(vec![1, 2, 3])), // Initial password using PasswordBytes
         );
 
-        // Simulate an update: add a new version and mark it current
+        // Add some historical versions
         entry.password_versions[0].is_current = false; // Old version is no longer current
         entry.password_versions.push(create_password_version(vec![4, 5, 6], 2, true)); // New current
 
@@ -501,11 +519,44 @@ mod tests {
         assert_eq!(entry.password_versions.iter().filter(|v| v.is_current).count(), 1, "Only one password version should remain current");
     }
 
+    // NEW TEST: Test PasswordEntry::set_version_as_current when already current
+    #[test]
+    fn test_password_entry_set_already_current_version_as_current() {
+        let mut entry = PasswordEntry::new(
+            "Site with versions".to_string(),
+            Some(PasswordBytes(vec![10])), // V1 current
+        );
+        entry.password_versions.push(create_password_version(vec![20], 2, false)); // V2 not current
+
+        // Ensure V1 is current
+        assert!(entry.password_versions.iter().find(|v| v.version == 1).unwrap().is_current);
+
+        let initial_updated_at = entry.updated_at;
+        std::thread::sleep(Duration::from_millis(10)); // Simulate time passing
+
+        // Set V1 as current (it already is)
+        let success = entry.set_version_as_current(1);
+        assert!(success, "set_version_as_current(1) for already current should return true");
+
+        let current_password = entry.get_current_password();
+        assert!(current_password.is_some());
+        assert_eq!(current_password.unwrap().0, vec![10]); // Should still be V1
+
+        // Verify only one is current
+        assert_eq!(entry.password_versions.iter().filter(|v| v.is_current).count(), 1);
+        assert!(entry.password_versions.iter().find(|v| v.version == 1).unwrap().is_current);
+
+        // Ensure updated_at changed even if it was already current
+        assert!(entry.updated_at > initial_updated_at);
+    }
+
+
     #[test]
     fn test_encrypted_vault_serialization_deserialization() {
         let vault = EncryptedVault {
             salt: vec![10, 11, 12, 13, 14, 15],
             encrypted_payload: vec![20, 21, 22, 23, 24, 25, 26, 27],
+            nonce: vec![30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41], // Example nonce
             vault_version: 1,
         };
 
@@ -517,6 +568,46 @@ mod tests {
 
         assert_eq!(deserialized_vault.salt, vault.salt);
         assert_eq!(deserialized_vault.encrypted_payload, vault.encrypted_payload);
+        assert_eq!(deserialized_vault.nonce, vault.nonce);
         assert_eq!(deserialized_vault.vault_version, vault.vault_version);
+    }
+
+    // --- NEW TESTS FOR PasswordBytes DESERIALIZATION ERRORS ---
+
+    #[test]
+    fn test_password_bytes_deserialization_invalid_base64() {
+        // Attempt to deserialize an invalid base64 string
+        let invalid_base64_str = "\"not-valid-base64!\"";
+        let result: Result<PasswordBytes, serde_json::Error> = serde_json::from_str(invalid_base64_str);
+
+        assert!(result.is_err(), "Deserialization should fail for invalid Base64 input");
+        let err = result.unwrap_err();
+        // The error message for base64 decoding usually contains "Invalid symbol" or "Invalid byte".
+        // Let's check for these keywords, as the exact error string can be platform/version dependent.
+        let error_msg = err.to_string();
+        assert!(
+            error_msg.contains("Invalid symbol") || error_msg.contains("Invalid byte") || error_msg.contains("Invalid character"),
+            "Error message should indicate a Base64 decoding problem. Actual: {:?}", err
+        );
+    }
+
+
+    #[test]
+    fn test_password_bytes_deserialization_non_string_input() {
+        // Attempt to deserialize non-string input (e.g., a number or boolean)
+        let non_string_input = "12345"; // This is valid JSON for an integer, but not for PasswordBytes
+        let result: Result<PasswordBytes, serde_json::Error> = serde_json::from_str(non_string_input);
+
+        assert!(result.is_err(), "Deserialization should fail for non-string input");
+        let err = result.unwrap_err();
+        // The error indicates a type mismatch in Serde
+        assert!(err.to_string().contains("invalid type: integer") || err.to_string().contains("expected a string"),
+                "Error message should indicate type mismatch: {}", err);
+    }
+
+    // NEW TEST: Test CredentialType Default
+    #[test]
+    fn test_credential_type_default() {
+        assert_eq!(CredentialType::default(), CredentialType::Website);
     }
 }

@@ -1,6 +1,14 @@
+# I:\_Dev\HeikkinenPasswordManager\Cargo.toml
+
 [workspace]
 members = [
-    "crates/*",
+    "crates/password_core",
+    "crates/password_storage",
+    "crates/password_api",
+    "crates/password_cli",
 ]
+resolver = "2" # <--- THIS LINE MUST BE DIRECTLY UNDER [workspace]
 
-resolver = "2" # Add this line
+[profile.release]
+lto = true
+codegen-units = 1

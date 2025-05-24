@@ -6,7 +6,6 @@ use std::io::{self, Write}; // <-- This was the merged line. Now it's properly s
 // Import the specific items directly from password_core::crypto
 use password_core::crypto::{derive_key_from_password, encrypt, decrypt};
 // Now you can import the re-exported constants directly from password_core
-use password_core::{SALT_LEN, NONCE_LEN};
 
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
