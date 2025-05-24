@@ -1,0 +1,31 @@
+# Indentation (Java uses 4 spaces)
+tab_spaces = 4
+indent_style = "Block"
+
+# Braces always on a new line (Allman/BSD style, common in Java)
+brace_style = "AlwaysNewLine"
+
+# Max line width (Java standard is 80-100)
+max_width = 120
+
+# Space after control keywords (if, for, while, etc.)
+space_after_keywords = true
+
+# Space before colons in type annotations (like Java generics)
+space_before_colon = true
+
+# Match arms (similar to Java switch-case)
+match_arm_blocks = true       # Forces braces for match arms
+match_block_trailing_comma = true
+
+# Function arguments (Java-like)
+fn_args_layout = "Tall"       # Forces each argument on a new line if they don't fit
+fn_params_layout = "Tall"
+
+# Imports grouping (Java organizes imports in blocks)
+group_imports = "StdExternalCrate"  # Groups std, external, and local imports
+imports_granularity = "Module"      # Like Java's grouped imports
+
+# Chain formatting (Java often breaks method chains)
+chain_width = 80              # Shorter chains to force breaks
+wrap_comments = true          # Java-style wrapped comments

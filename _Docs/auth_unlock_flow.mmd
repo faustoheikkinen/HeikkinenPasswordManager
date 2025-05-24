@@ -1,0 +1,58 @@
+graph TD
+    A[App Launched] --> B{Is App in Portable Mode?}
+
+    B -- Yes --> C[Require Manual Master Password Entry Always]
+    C --> END_PORTABLE[End Portable Flow]
+
+    B -- No --> D{Read App Configuration File}
+
+    D --> E{Are there Admin Profiles configured?}
+
+    E -- Yes --> F[Prompt for Manager's Master Password]
+    F --> G{Manager Enters MP?}
+
+    G -- No / Incorrect --> F
+    G -- Yes / Correct --> H[Manager's Profile Authenticated]
+
+    H --> I[Unlock Profile List & Admin Access]
+
+    E -- No --> I
+
+    I --> J[Display List of App User Profiles]
+    J --> K[User Selects Desired Profile]
+
+    K --> L{Is it First Time Setup for this Profile?}
+
+    L -- Yes --> M[Prompt User to Create Master Password]
+    M --> N[Derive VEK from User MP + Salt]
+    N --> O[Encrypt VEK using OS-Bound + Profile ID]
+    O --> P[Store Encrypted VEK in Config]
+    P --> Q[Create New Encrypted Vault File]
+    Q --> R[Vault is Open for Active Session]
+
+    L -- No --> S{Attempt OS-Bound Decryption of Stored VEK?}
+    S -- Yes --> R
+
+    S -- No / Decryption Fails --> T[Prompt User for Master Password]
+    T --> U{User Enters MP?}
+
+    U -- No / Incorrect --> T
+    U -- Yes / Correct --> N
+
+    R --> V{App Active / User Interacts}
+
+    V --> W{Inactivity Timeout / Explicit Lock?}
+
+    W -- Yes --> X[Clear VEK from Memory & Lock UI]
+    X --> Y{Is OS-Level PIN/Biometric Configured?}
+
+    Y -- Yes --> Z[Prompt for PIN/Biometric]
+    Z --> AA{User Provides PIN/Biometric?}
+
+    AA -- No / Incorrect --> Y
+    AA -- Yes / Correct --> S_BIOMETRIC[OS Authorizes VEK Retrieval]
+    S_BIOMETRIC --> R
+
+    Y -- No --> T[Prompt User for Master Password]
+
+    END_PORTABLE --> ZZZ[End]

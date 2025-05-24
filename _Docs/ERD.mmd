@@ -1,0 +1,13 @@
+erDiagram
+    "App User Profile" {
+        UUID id PK
+        string name
+        string vault_file_path
+        string encrypted_master_key_blob "OS-bound encrypted VEK"
+        timestamp last_access_timestamp
+        boolean is_admin "Manager Role"
+        string vault_salt "KDF salt for vault"
+        int kdf_iterations "KDF iterations for vault"
+    }
+    
+    "App Configuration File" ||--o{ "App User Profile" : contains
