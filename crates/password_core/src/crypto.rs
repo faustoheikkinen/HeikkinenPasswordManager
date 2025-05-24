@@ -1,7 +1,7 @@
 // crates/password_core/src/crypto.rs
 
 use argon2::{
-    password_hash::{rand_core::OsRng, rand_core::RngCore, SaltString},
+    password_hash::{rand_core::OsRng, rand_core::RngCore}, // Removed SaltString
     Argon2
 };
 use chacha20poly1305::{
@@ -70,7 +70,7 @@ pub fn derive_key_from_password(password: &[u8], salt: Option<&[u8]>) -> Result<
         .map_err(|e| PasswordManagerError::Argon2CalculationError(e))?; // Map argon2::Error to Argon2CalculationError
 
     // Wrap the derived key bytes in PasswordBytes for secure handling
-    let key = EncryptionKey(derived_key_bytes.to_vec());
+    let key = PasswordBytes(derived_key_bytes.to_vec()); // FIX: Use PasswordBytes constructor directly
 
     Ok((key, actual_salt_bytes))
 }
@@ -125,7 +125,7 @@ pub fn decode_base64<T: AsRef<str>>(input: T) -> Result<Vec<u8>, PasswordManager
 
 #[cfg(test)]
 mod tests {
-    use super::*; // Now super includes the re-exported items
+    use super::*;
     use crate::crypto::{generate_random_bytes, derive_key_from_password, encrypt, decrypt}; // Individual functions still needed
     use crate::error::PasswordManagerError; // Explicitly bring into scope for error matching
 
@@ -193,7 +193,7 @@ mod tests {
     #[test]
     fn test_encrypt_decrypt_cycle() {
         let password = b"strong_master_password";
-        let (key, salt) = derive_key_from_password(password, None).unwrap();
+        let (key, _salt) = derive_key_from_password(password, None).unwrap();
 
         let plaintext = b"This is a secret message that needs to be protected.";
         let (ciphertext, nonce) = encrypt(&key, plaintext).unwrap();
@@ -260,6 +260,7 @@ mod tests {
             // (e.g., ensure plaintext is always non-empty for this specific test case)
             return;
         }
+
 
         let result = decrypt(&key, &ciphertext, &nonce);
         assert!(result.is_err(), "Decryption should fail with tampered ciphertext");

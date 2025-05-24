@@ -213,6 +213,14 @@ pub struct EncryptedVault {
     pub vault_version: u32, // Version of the vault's internal data structure format
 }
 
+/// Represents a simple note entry in the vault.
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub struct Note {
+    pub id: String,
+    pub content: String,
+    // You might add fields like created_at: DateTime<Utc>, updated_at: DateTime<Utc> later
+}
+
 #[cfg(test)]
 mod tests {
     use super::*; // Import items from the parent module (data_types.rs)

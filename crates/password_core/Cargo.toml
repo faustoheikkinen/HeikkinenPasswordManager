@@ -1,21 +1,27 @@
-# // crates/password_core/Cargo.toml
+# crates/password_core/Cargo.toml
+
 [package]
 name = "password_core"
 version = "0.1.0"
 edition = "2021"
 
+[lib]
+name = "password_core"
+path = "src/lib.rs"
+
 [dependencies]
 # Core password hashing and encryption
-argon2 = "0.5.3"          # For key derivation
-chacha20poly1305 = "0.10.1" # For AEAD encryption
+argon2 = "0.5.3"             # For key derivation
+chacha20poly1305 = "0.10.1"  # For AEAD encryption
 
 # Error handling
-thiserror = "1.0.60"      # For custom error types
+thiserror = "1.0.60"         # For custom error types
+log = "0.4"                  # NEW: For logging (used in settings_manager)
 
 # Data handling and serialization
 serde = { version = "1.0", features = ["derive"] } # For serialization/deserialization of data types
-serde_json = "1.0"        # For serializing/deserializing to JSON
-base64 = "0.22"           # For encoding/decoding binary data (e.g., encrypted payloads)
+serde_json = "1.0"           # For serializing/deserializing to JSON
+base64 = "0.22"              # For encoding/decoding binary data (e.g., encrypted payloads)
 
 # Unique identifiers and timestamps
 uuid = { version = "1.8", features = ["v4", "serde"] } # "v4" for Uuid::new_v4, "serde" for serialization/deserialization
@@ -24,11 +30,15 @@ chrono = { version = "0.4", features = ["serde"] } # "serde" for DateTime serial
 # Security: Zeroizing sensitive data from memory
 zeroize = { version = "1.6", features = ["derive"] } # "derive" for #[derive(Zeroize, ZeroizeOnDrop)]
 
+# Settings Manager / File IO
+dirs-next = "1.0"            # NEW: For cross-platform app data directory detection
+
 # CLI and user interaction (assuming password_core is also the main application's crate)
 # If password_core is purely a library, these should be moved to password_cli's Cargo.toml
 clap = { version = "4.5", features = ["derive"] } # For command-line argument parsing
-rpassword = "7.4"         # For secure password input without echoing
-comfy-table = "7.1"       # For displaying tabular data in the CLI
+rpassword = "7.4"            # For secure password input without echoing
+comfy-table = "7.1"          # For displaying tabular data in the CLI
 
 [dev-dependencies]
-colored = "2.2.0" # Make sure this is the latest version if needed, I used 2.2.0 for the current solution.
+colored = "2.2.0"
+tempfile = "3.10" # NEW: For creating temporary directories in tests
