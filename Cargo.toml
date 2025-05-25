@@ -13,3 +13,23 @@ resolver = "2" # <--- THIS LINE MUST BE DIRECTLY UNDER [workspace]
 [profile.release]
 lto = true
 codegen-units = 1
+
+
+[workspace.lints] 
+
+# # --- THIS IS THE NEW STRATEGY: Patch from Git ---
+# [patch.crates-io]
+# socket2 = { git = "https://github.com/rust-lang/socket2.git", tag = "socket2-0.6.0" }
+
+# [patch.crates-io]
+# socket2 = { version = "0.6.0" } 
+
+# # this is to solve a conflict with many versions of windows-sys 
+# [replace]
+# # "tokio:1.45.0" = { path = "./patches/tokio1.45.1_modified/tokio" }    
+# tokio = { path = "./patches/tokio1.45.1_modified/tokio" }    
+
+# # --- NEW: Use [patch.crates-io] to force specific versions ---
+# [patch.crates-io]
+# socket2 = { version = "0.6.0" } # Force socket2 to 0.6.0
+# windows-sys = { version = "0.59.0" } # Force windows-sys to 0.59.0
