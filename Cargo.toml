@@ -17,6 +17,13 @@ codegen-units = 1
 
 [workspace.lints] 
 
+
+
+# # --- TARGETED PATCHING TO CONSOLIDATE WINDOWS-SYS ---
+# [patch.crates-io]
+# socket2 = { version = "0.6.0" } # This forces socket2 to 0.6.0 from crates.io
+# # If this doesn't work, we might need to point socket2 to a git repo, but let's try crates.io first.
+
 # # --- THIS IS THE NEW STRATEGY: Patch from Git ---
 # [patch.crates-io]
 # socket2 = { git = "https://github.com/rust-lang/socket2.git", tag = "socket2-0.6.0" }
