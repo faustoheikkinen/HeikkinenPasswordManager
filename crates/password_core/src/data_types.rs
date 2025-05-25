@@ -21,6 +21,7 @@ use base64::{engine::general_purpose, Engine as _};
 /// This helps prevent sensitive data from lingering in memory. It also includes
 /// custom `Serialize` and `Deserialize` implementations to handle Base64 encoding/decoding
 /// for storage, and a redacted `Debug` implementation for safety.
+//#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[derive(Clone)]
 pub struct PasswordBytes(pub Vec<u8>);
 
@@ -38,6 +39,14 @@ impl ZeroizeOnDrop for PasswordBytes {}
 impl fmt::Debug for PasswordBytes {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "PasswordBytes([REDACTED])")
+    }
+}
+
+// Implement `From<Vec<u8>>` for `PasswordBytes`.
+// This allows `Vec<u8>` to be converted into `PasswordBytes` using `.into()`.
+impl From<Vec<u8>> for PasswordBytes {
+    fn from(bytes: Vec<u8>) -> Self {
+        PasswordBytes(bytes)
     }
 }
 

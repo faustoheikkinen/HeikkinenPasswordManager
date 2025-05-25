@@ -9,10 +9,22 @@ edition = "2021"
 name = "password_core"
 path = "src/lib.rs"
 
+# Add this new section for the interactive demo binary
+[[bin]]
+name = "interactive_demo"
+path = "src/bin/interactive_demo.rs"
+
 [dependencies]
 # Core password hashing and encryption
-argon2 = "0.5.3"             # For key derivation
+argon2 = { version = "0.5.3", features = ["std"] }            # For key derivation
 chacha20poly1305 = "0.10.1"  # For AEAD encryption
+rand_core = { version = "0.6", features = ["std"] } # This should already be there, ensure it is
+bincode = "1.3.3" # 
+tempfile = "3.10.1" # 
+tokio = { version = "1.37.0", features = ["full"] } # 
+env_logger = "0.11.3" # 
+colored = "2.0" 
+
 
 # Error handling
 thiserror = "1.0.60"         # For custom error types

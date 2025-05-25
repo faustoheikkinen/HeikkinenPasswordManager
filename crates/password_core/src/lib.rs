@@ -13,6 +13,8 @@ pub mod crypto;
 pub mod data_types;
 pub mod error;
 pub mod settings_manager;
+pub mod os_key_protector;
+pub mod printer;
 
 // Re-export constants and types from crypto for easier access.
 // These allow consumers of `password_core` to use important cryptographic
@@ -23,6 +25,7 @@ pub use crypto::{SALT_LEN, NONCE_LEN, KEY_LEN, EncryptionKey};
 pub use error::PasswordManagerError;
 // Re-export configuration and user profile types from `settings_manager` for application-wide use.
 pub use settings_manager::{AppConfig, AppUserProfile};
+pub use os_key_protector::KeyringProvider;
 
 /// Unit tests for the `password_core` crate's main functionalities.
 ///

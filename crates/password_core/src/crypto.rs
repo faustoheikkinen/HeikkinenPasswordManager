@@ -145,7 +145,7 @@ pub fn encrypt(key: &EncryptionKey, plaintext: &[u8]) -> Result<(Vec<u8>, Vec<u8
     let nonce = Nonce::from_slice(&nonce_bytes);
 
     let ciphertext = cipher.encrypt(nonce, plaintext)
-        .map_err(|e| PasswordManagerError::EncryptionError(e))?;
+    .map_err(|e| PasswordManagerError::EncryptionError(format!("{:?}", e)))?;
 
     Ok((ciphertext, nonce_bytes))
 }
