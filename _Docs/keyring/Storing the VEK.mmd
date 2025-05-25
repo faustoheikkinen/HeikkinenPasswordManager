@@ -1,0 +1,18 @@
+sequenceDiagram
+    participant App as Application Code
+    participant OSKP as os_key_protector.rs
+    participant KR as keyring::Entry
+    participant OS as OS Keyring Service
+
+    App->>OSKP: store_vek_os_bound(profile_id, vek)
+    OSKP->>KR: Entry::new(service_name, username)
+    KR->>OS: Request Keyring Handle
+    OS-->>KR: Keyring Handle
+    KR-->>OSKP: Keyring Entry Instance
+    OSKP->>OSKP: Base64 Encode VEK (vek.0)
+    OSKP->>KR: set_password(base66_vek)
+    KR->>OS: Store Credential (VEK)
+    Note right of OS: OS may prompt user for authentication (PIN, biometrics)
+    OS-->>KR: Storage Result
+    KR-->>OSKP: Success/Error
+    OSKP-->>App: Result<(), PasswordManagerError>

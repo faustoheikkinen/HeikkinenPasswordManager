@@ -1,0 +1,16 @@
+sequenceDiagram
+    participant App as Application Code
+    participant OSKP as os_key_protector.rs
+    participant KR as keyring::Entry
+    participant OS as OS Keyring Service
+
+    App->>OSKP: delete_vek_os_bound(profile_id)
+    OSKP->>KR: Entry::new(service_name, username)
+    KR->>OS: Request Keyring Handle
+    OS-->>KR: Keyring Handle
+    KR-->>OSKP: Keyring Entry Instance
+    OSKP->>KR: delete_credential()
+    KR->>OS: Delete Credential (VEK)
+    OS-->>KR: Deletion Result
+    KR-->>OSKP: Success/Error
+    OSKP-->>App: Result<(), PasswordManagerError>

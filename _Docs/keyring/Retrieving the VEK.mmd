@@ -1,0 +1,19 @@
+sequenceDiagram
+    participant App as Application Code
+    participant OSKP as os_key_protector.rs
+    participant KR as keyring::Entry
+    participant OS as OS Keyring Service
+
+    App->>OSKP: retrieve_vek_os_bound(profile_id)
+    OSKP->>KR: Entry::new(service_name, username)
+    KR->>OS: Request Keyring Handle
+    OS-->>KR: Keyring Handle
+    KR-->>OSKP: Keyring Entry Instance
+    OSKP->>KR: get_password()
+    KR->>OS: Retrieve Credential (VEK)
+    Note right of OS: OS may prompt user for authentication (PIN, biometrics)
+    OS-->>KR: Retrieved Credential
+    KR-->>OSKP: Base64 Encoded VEK
+    OSKP->>OSKP: Base64 Decode VEK
+    OSKP->>OSKP: Validate VEK Length
+    OSKP-->>App: Result<EncryptionKey, PasswordManagerError>

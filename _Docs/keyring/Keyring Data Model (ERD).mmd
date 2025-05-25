@@ -1,0 +1,14 @@
+erDiagram
+    KeyringEntry {
+        string service_name PK "HeikkinenPasswordManager-{profile_id}"
+        string username PK "Fixed: default_user_for_vek"
+        string vek_base64 "Base64 encoded Vault Encryption Key"
+    }
+    AppUserConceptualProfile {
+        string profile_id PK "Used to form service_name"
+    }
+
+    AppUserConceptualProfile ||--o{ KeyringEntry : "1:N VEK stored for"
+
+    %% % This relationship shows that a profile corresponds to a keyring entry
+    %% % where the profile_id is part of the service_name.
