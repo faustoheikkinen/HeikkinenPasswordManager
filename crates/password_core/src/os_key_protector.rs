@@ -142,7 +142,7 @@ mod tests {
     use std::cell::RefCell;
     use std::collections::HashMap;
     use crate::crypto::KEY_LEN; // Removed generate_random_bytes
-    use crate::PasswordManagerError;
+    
 
     // --- Mock Keyring Provider for Testing ---
     struct MockKeyringProvider {

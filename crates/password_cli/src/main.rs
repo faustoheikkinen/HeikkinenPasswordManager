@@ -10,7 +10,8 @@ use password_core::{
     PasswordManagerError,
 };
 
-use rpassword::read_password;
+// use rpassword::read_password;
+use scanpw::scanpw;
 use serde_json::{self, Value};
 use zeroize::Zeroize;
 use termcolor::{Color, ColorChoice, ColorSpec, StandardStream, WriteColor};
@@ -32,7 +33,8 @@ fn pc(writer: &mut StandardStream, text: &str, color: Color, bold: bool, intense
 // Helper function to get password input
 fn get_password_input(_prompt: &str) -> io::Result<String> {
     io::stdout().flush()?;
-    let input = read_password().unwrap_or_default();
+    //let input = read_password().unwrap_or_default();
+    let input = scanpw!("Enter password: ");
     Ok(input.trim().to_string())
 }
 

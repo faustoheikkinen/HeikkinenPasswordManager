@@ -1,0 +1,2202 @@
+password_api v0.1.0 (I:\_Dev\HeikkinenPasswordManager\crates\password_api)
+├── anyhow v1.0.98
+├── clap v4.5.38
+│   ├── clap_builder v4.5.38
+│   │   ├── anstream v0.6.18
+│   │   │   ├── anstyle v1.0.10
+│   │   │   ├── anstyle-parse v0.2.6
+│   │   │   │   └── utf8parse v0.2.2
+│   │   │   ├── anstyle-query v1.1.2
+│   │   │   │   └── windows-sys v0.59.0
+│   │   │   │       └── windows-targets v0.52.6
+│   │   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   │   ├── anstyle-wincon v3.0.8
+│   │   │   │   ├── anstyle v1.0.10
+│   │   │   │   ├── once_cell_polyfill v1.70.1
+│   │   │   │   └── windows-sys v0.59.0
+│   │   │   │       └── windows-targets v0.52.6
+│   │   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   │   ├── colorchoice v1.0.3
+│   │   │   ├── is_terminal_polyfill v1.70.1
+│   │   │   └── utf8parse v0.2.2
+│   │   ├── anstyle v1.0.10
+│   │   ├── clap_lex v0.7.4
+│   │   └── strsim v0.11.1
+│   └── clap_derive v4.5.32 (proc-macro)
+│       ├── heck v0.5.0
+│       ├── proc-macro2 v1.0.95
+│       │   └── unicode-ident v1.0.18
+│       ├── quote v1.0.40
+│       │   └── proc-macro2 v1.0.95
+│       │       └── unicode-ident v1.0.18
+│       └── syn v2.0.101
+│           ├── proc-macro2 v1.0.95
+│           │   └── unicode-ident v1.0.18
+│           ├── quote v1.0.40
+│           │   └── proc-macro2 v1.0.95
+│           │       └── unicode-ident v1.0.18
+│           └── unicode-ident v1.0.18
+├── clipboard v0.5.0
+│   └── clipboard-win v2.2.0
+│       └── winapi v0.3.9
+├── comfy-table v7.1.4
+│   ├── crossterm v0.28.1
+│   │   ├── bitflags v2.9.1
+│   │   ├── crossterm_winapi v0.9.1
+│   │   │   └── winapi v0.3.9
+│   │   ├── parking_lot v0.12.3
+│   │   │   ├── lock_api v0.4.12
+│   │   │   │   └── scopeguard v1.2.0
+│   │   │   └── parking_lot_core v0.9.10
+│   │   │       ├── cfg-if v1.0.0
+│   │   │       ├── smallvec v1.15.0
+│   │   │       └── windows-targets v0.52.6
+│   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   └── winapi v0.3.9
+│   ├── unicode-segmentation v1.12.0
+│   └── unicode-width v0.2.0
+├── directories v6.0.0
+│   └── dirs-sys v0.5.0
+│       ├── option-ext v0.2.0
+│       └── windows-sys v0.59.0
+│           └── windows-targets v0.52.6
+│               └── windows_x86_64_msvc v0.52.6
+├── dotenv v0.15.0
+├── inquire v0.6.2
+│   ├── bitflags v1.3.2
+│   ├── crossterm v0.25.0
+│   │   ├── bitflags v1.3.2
+│   │   ├── crossterm_winapi v0.9.1
+│   │   │   └── winapi v0.3.9
+│   │   ├── parking_lot v0.12.3
+│   │   │   ├── lock_api v0.4.12
+│   │   │   │   └── scopeguard v1.2.0
+│   │   │   └── parking_lot_core v0.9.10
+│   │   │       ├── cfg-if v1.0.0
+│   │   │       ├── smallvec v1.15.0
+│   │   │       └── windows-targets v0.52.6
+│   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   └── winapi v0.3.9
+│   ├── dyn-clone v1.0.19
+│   ├── lazy_static v1.5.0
+│   ├── newline-converter v0.2.2
+│   │   └── unicode-segmentation v1.12.0
+│   ├── thiserror v1.0.69
+│   │   └── thiserror-impl v1.0.69 (proc-macro)
+│   │       ├── proc-macro2 v1.0.95
+│   │       │   └── unicode-ident v1.0.18
+│   │       ├── quote v1.0.40
+│   │       │   └── proc-macro2 v1.0.95
+│   │       │       └── unicode-ident v1.0.18
+│   │       └── syn v2.0.101
+│   │           ├── proc-macro2 v1.0.95
+│   │           │   └── unicode-ident v1.0.18
+│   │           ├── quote v1.0.40
+│   │           │   └── proc-macro2 v1.0.95
+│   │           │       └── unicode-ident v1.0.18
+│   │           └── unicode-ident v1.0.18
+│   ├── unicode-segmentation v1.12.0
+│   └── unicode-width v0.1.14
+├── once_cell v1.21.3
+├── password_core v0.1.0 (I:\_Dev\HeikkinenPasswordManager\crates\password_core)
+│   ├── argon2 v0.5.3
+│   │   ├── base64ct v1.7.3
+│   │   ├── blake2 v0.10.6
+│   │   │   └── digest v0.10.7
+│   │   │       ├── block-buffer v0.10.4
+│   │   │       │   └── generic-array v0.14.7
+│   │   │       │       └── typenum v1.18.0
+│   │   │       ├── crypto-common v0.1.6
+│   │   │       │   ├── generic-array v0.14.7
+│   │   │       │   │   └── typenum v1.18.0
+│   │   │       │   ├── rand_core v0.6.4
+│   │   │       │   │   └── getrandom v0.2.16
+│   │   │       │   │       └── cfg-if v1.0.0
+│   │   │       │   └── typenum v1.18.0
+│   │   │       └── subtle v2.6.1
+│   │   ├── cpufeatures v0.2.17
+│   │   └── password-hash v0.5.0
+│   │       ├── base64ct v1.7.3
+│   │       ├── rand_core v0.6.4
+│   │       │   └── getrandom v0.2.16
+│   │       │       └── cfg-if v1.0.0
+│   │       └── subtle v2.6.1
+│   ├── base64 v0.22.1
+│   ├── bincode v1.3.3
+│   │   └── serde v1.0.219
+│   │       └── serde_derive v1.0.219 (proc-macro)
+│   │           ├── proc-macro2 v1.0.95
+│   │           │   └── unicode-ident v1.0.18
+│   │           ├── quote v1.0.40
+│   │           │   └── proc-macro2 v1.0.95
+│   │           │       └── unicode-ident v1.0.18
+│   │           └── syn v2.0.101
+│   │               ├── proc-macro2 v1.0.95
+│   │               │   └── unicode-ident v1.0.18
+│   │               ├── quote v1.0.40
+│   │               │   └── proc-macro2 v1.0.95
+│   │               │       └── unicode-ident v1.0.18
+│   │               └── unicode-ident v1.0.18
+│   ├── chacha20poly1305 v0.10.1
+│   │   ├── aead v0.5.2
+│   │   │   ├── crypto-common v0.1.6
+│   │   │   │   ├── generic-array v0.14.7
+│   │   │   │   │   └── typenum v1.18.0
+│   │   │   │   ├── rand_core v0.6.4
+│   │   │   │   │   └── getrandom v0.2.16
+│   │   │   │   │       └── cfg-if v1.0.0
+│   │   │   │   └── typenum v1.18.0
+│   │   │   └── generic-array v0.14.7
+│   │   │       └── typenum v1.18.0
+│   │   ├── chacha20 v0.9.1
+│   │   │   ├── cfg-if v1.0.0
+│   │   │   ├── cipher v0.4.4
+│   │   │   │   ├── crypto-common v0.1.6
+│   │   │   │   │   ├── generic-array v0.14.7
+│   │   │   │   │   │   └── typenum v1.18.0
+│   │   │   │   │   ├── rand_core v0.6.4
+│   │   │   │   │   │   └── getrandom v0.2.16
+│   │   │   │   │   │       └── cfg-if v1.0.0
+│   │   │   │   │   └── typenum v1.18.0
+│   │   │   │   ├── inout v0.1.4
+│   │   │   │   │   └── generic-array v0.14.7
+│   │   │   │   │       └── typenum v1.18.0
+│   │   │   │   └── zeroize v1.8.1
+│   │   │   │       └── zeroize_derive v1.4.2 (proc-macro)
+│   │   │   │           ├── proc-macro2 v1.0.95
+│   │   │   │           │   └── unicode-ident v1.0.18
+│   │   │   │           ├── quote v1.0.40
+│   │   │   │           │   └── proc-macro2 v1.0.95
+│   │   │   │           │       └── unicode-ident v1.0.18
+│   │   │   │           └── syn v2.0.101
+│   │   │   │               ├── proc-macro2 v1.0.95
+│   │   │   │               │   └── unicode-ident v1.0.18
+│   │   │   │               ├── quote v1.0.40
+│   │   │   │               │   └── proc-macro2 v1.0.95
+│   │   │   │               │       └── unicode-ident v1.0.18
+│   │   │   │               └── unicode-ident v1.0.18
+│   │   │   └── cpufeatures v0.2.17
+│   │   ├── cipher v0.4.4
+│   │   │   ├── crypto-common v0.1.6
+│   │   │   │   ├── generic-array v0.14.7
+│   │   │   │   │   └── typenum v1.18.0
+│   │   │   │   ├── rand_core v0.6.4
+│   │   │   │   │   └── getrandom v0.2.16
+│   │   │   │   │       └── cfg-if v1.0.0
+│   │   │   │   └── typenum v1.18.0
+│   │   │   ├── inout v0.1.4
+│   │   │   │   └── generic-array v0.14.7
+│   │   │   │       └── typenum v1.18.0
+│   │   │   └── zeroize v1.8.1
+│   │   │       └── zeroize_derive v1.4.2 (proc-macro)
+│   │   │           ├── proc-macro2 v1.0.95
+│   │   │           │   └── unicode-ident v1.0.18
+│   │   │           ├── quote v1.0.40
+│   │   │           │   └── proc-macro2 v1.0.95
+│   │   │           │       └── unicode-ident v1.0.18
+│   │   │           └── syn v2.0.101
+│   │   │               ├── proc-macro2 v1.0.95
+│   │   │               │   └── unicode-ident v1.0.18
+│   │   │               ├── quote v1.0.40
+│   │   │               │   └── proc-macro2 v1.0.95
+│   │   │               │       └── unicode-ident v1.0.18
+│   │   │               └── unicode-ident v1.0.18
+│   │   ├── poly1305 v0.8.0
+│   │   │   ├── cpufeatures v0.2.17
+│   │   │   ├── opaque-debug v0.3.1
+│   │   │   └── universal-hash v0.5.1
+│   │   │       ├── crypto-common v0.1.6
+│   │   │       │   ├── generic-array v0.14.7
+│   │   │       │   │   └── typenum v1.18.0
+│   │   │       │   ├── rand_core v0.6.4
+│   │   │       │   │   └── getrandom v0.2.16
+│   │   │       │   │       └── cfg-if v1.0.0
+│   │   │       │   └── typenum v1.18.0
+│   │   │       └── subtle v2.6.1
+│   │   └── zeroize v1.8.1
+│   │       └── zeroize_derive v1.4.2 (proc-macro)
+│   │           ├── proc-macro2 v1.0.95
+│   │           │   └── unicode-ident v1.0.18
+│   │           ├── quote v1.0.40
+│   │           │   └── proc-macro2 v1.0.95
+│   │           │       └── unicode-ident v1.0.18
+│   │           └── syn v2.0.101
+│   │               ├── proc-macro2 v1.0.95
+│   │               │   └── unicode-ident v1.0.18
+│   │               ├── quote v1.0.40
+│   │               │   └── proc-macro2 v1.0.95
+│   │               │       └── unicode-ident v1.0.18
+│   │               └── unicode-ident v1.0.18
+│   ├── chrono v0.4.41
+│   │   ├── num-traits v0.2.19
+│   │   ├── serde v1.0.219
+│   │   │   └── serde_derive v1.0.219 (proc-macro)
+│   │   │       ├── proc-macro2 v1.0.95
+│   │   │       │   └── unicode-ident v1.0.18
+│   │   │       ├── quote v1.0.40
+│   │   │       │   └── proc-macro2 v1.0.95
+│   │   │       │       └── unicode-ident v1.0.18
+│   │   │       └── syn v2.0.101
+│   │   │           ├── proc-macro2 v1.0.95
+│   │   │           │   └── unicode-ident v1.0.18
+│   │   │           ├── quote v1.0.40
+│   │   │           │   └── proc-macro2 v1.0.95
+│   │   │           │       └── unicode-ident v1.0.18
+│   │   │           └── unicode-ident v1.0.18
+│   │   └── windows-link v0.1.1
+│   ├── clap v4.5.38
+│   │   ├── clap_builder v4.5.38
+│   │   │   ├── anstream v0.6.18
+│   │   │   │   ├── anstyle v1.0.10
+│   │   │   │   ├── anstyle-parse v0.2.6
+│   │   │   │   │   └── utf8parse v0.2.2
+│   │   │   │   ├── anstyle-query v1.1.2
+│   │   │   │   │   └── windows-sys v0.59.0
+│   │   │   │   │       └── windows-targets v0.52.6
+│   │   │   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   │   │   ├── anstyle-wincon v3.0.8
+│   │   │   │   │   ├── anstyle v1.0.10
+│   │   │   │   │   ├── once_cell_polyfill v1.70.1
+│   │   │   │   │   └── windows-sys v0.59.0
+│   │   │   │   │       └── windows-targets v0.52.6
+│   │   │   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   │   │   ├── colorchoice v1.0.3
+│   │   │   │   ├── is_terminal_polyfill v1.70.1
+│   │   │   │   └── utf8parse v0.2.2
+│   │   │   ├── anstyle v1.0.10
+│   │   │   ├── clap_lex v0.7.4
+│   │   │   └── strsim v0.11.1
+│   │   └── clap_derive v4.5.32 (proc-macro)
+│   │       ├── heck v0.5.0
+│   │       ├── proc-macro2 v1.0.95
+│   │       │   └── unicode-ident v1.0.18
+│   │       ├── quote v1.0.40
+│   │       │   └── proc-macro2 v1.0.95
+│   │       │       └── unicode-ident v1.0.18
+│   │       └── syn v2.0.101
+│   │           ├── proc-macro2 v1.0.95
+│   │           │   └── unicode-ident v1.0.18
+│   │           ├── quote v1.0.40
+│   │           │   └── proc-macro2 v1.0.95
+│   │           │       └── unicode-ident v1.0.18
+│   │           └── unicode-ident v1.0.18
+│   ├── colored v2.2.0
+│   │   ├── lazy_static v1.5.0
+│   │   └── windows-sys v0.59.0
+│   │       └── windows-targets v0.52.6
+│   │           └── windows_x86_64_msvc v0.52.6
+│   ├── comfy-table v7.1.4
+│   │   ├── crossterm v0.28.1
+│   │   │   ├── bitflags v2.9.1
+│   │   │   ├── crossterm_winapi v0.9.1
+│   │   │   │   └── winapi v0.3.9
+│   │   │   ├── parking_lot v0.12.3
+│   │   │   │   ├── lock_api v0.4.12
+│   │   │   │   │   └── scopeguard v1.2.0
+│   │   │   │   └── parking_lot_core v0.9.10
+│   │   │   │       ├── cfg-if v1.0.0
+│   │   │   │       ├── smallvec v1.15.0
+│   │   │   │       └── windows-targets v0.52.6
+│   │   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   │   └── winapi v0.3.9
+│   │   ├── unicode-segmentation v1.12.0
+│   │   └── unicode-width v0.2.0
+│   ├── dirs-next v1.0.2
+│   │   ├── cfg-if v1.0.0
+│   │   └── dirs-sys-next v0.1.2
+│   │       └── winapi v0.3.9
+│   ├── env_logger v0.11.8
+│   │   ├── anstream v0.6.18
+│   │   │   ├── anstyle v1.0.10
+│   │   │   ├── anstyle-parse v0.2.6
+│   │   │   │   └── utf8parse v0.2.2
+│   │   │   ├── anstyle-query v1.1.2
+│   │   │   │   └── windows-sys v0.59.0
+│   │   │   │       └── windows-targets v0.52.6
+│   │   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   │   ├── anstyle-wincon v3.0.8
+│   │   │   │   ├── anstyle v1.0.10
+│   │   │   │   ├── once_cell_polyfill v1.70.1
+│   │   │   │   └── windows-sys v0.59.0
+│   │   │   │       └── windows-targets v0.52.6
+│   │   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   │   ├── colorchoice v1.0.3
+│   │   │   ├── is_terminal_polyfill v1.70.1
+│   │   │   └── utf8parse v0.2.2
+│   │   ├── anstyle v1.0.10
+│   │   ├── env_filter v0.1.3
+│   │   │   ├── log v0.4.27
+│   │   │   └── regex v1.11.1
+│   │   │       ├── aho-corasick v1.1.3
+│   │   │       │   └── memchr v2.7.4
+│   │   │       ├── memchr v2.7.4
+│   │   │       ├── regex-automata v0.4.9
+│   │   │       │   ├── aho-corasick v1.1.3
+│   │   │       │   │   └── memchr v2.7.4
+│   │   │       │   ├── memchr v2.7.4
+│   │   │       │   └── regex-syntax v0.8.5
+│   │   │       └── regex-syntax v0.8.5
+│   │   ├── jiff v0.2.14
+│   │   └── log v0.4.27
+│   ├── keyring v3.6.2
+│   │   ├── byteorder v1.5.0
+│   │   ├── log v0.4.27
+│   │   └── windows-sys v0.59.0
+│   │       └── windows-targets v0.52.6
+│   │           └── windows_x86_64_msvc v0.52.6
+│   ├── log v0.4.27
+│   ├── once_cell v1.21.3
+│   ├── rand_core v0.6.4
+│   │   └── getrandom v0.2.16
+│   │       └── cfg-if v1.0.0
+│   ├── rpassword v7.4.0
+│   │   ├── rtoolbox v0.0.3
+│   │   │   └── windows-sys v0.52.0
+│   │   │       └── windows-targets v0.52.6
+│   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   └── windows-sys v0.59.0
+│   │       └── windows-targets v0.52.6
+│   │           └── windows_x86_64_msvc v0.52.6
+│   ├── serde v1.0.219
+│   │   └── serde_derive v1.0.219 (proc-macro)
+│   │       ├── proc-macro2 v1.0.95
+│   │       │   └── unicode-ident v1.0.18
+│   │       ├── quote v1.0.40
+│   │       │   └── proc-macro2 v1.0.95
+│   │       │       └── unicode-ident v1.0.18
+│   │       └── syn v2.0.101
+│   │           ├── proc-macro2 v1.0.95
+│   │           │   └── unicode-ident v1.0.18
+│   │           ├── quote v1.0.40
+│   │           │   └── proc-macro2 v1.0.95
+│   │           │       └── unicode-ident v1.0.18
+│   │           └── unicode-ident v1.0.18
+│   ├── serde_json v1.0.140
+│   │   ├── itoa v1.0.15
+│   │   ├── memchr v2.7.4
+│   │   ├── ryu v1.0.20
+│   │   └── serde v1.0.219
+│   │       └── serde_derive v1.0.219 (proc-macro)
+│   │           ├── proc-macro2 v1.0.95
+│   │           │   └── unicode-ident v1.0.18
+│   │           ├── quote v1.0.40
+│   │           │   └── proc-macro2 v1.0.95
+│   │           │       └── unicode-ident v1.0.18
+│   │           └── syn v2.0.101
+│   │               ├── proc-macro2 v1.0.95
+│   │               │   └── unicode-ident v1.0.18
+│   │               ├── quote v1.0.40
+│   │               │   └── proc-macro2 v1.0.95
+│   │               │       └── unicode-ident v1.0.18
+│   │               └── unicode-ident v1.0.18
+│   ├── tempfile v3.20.0
+│   │   ├── fastrand v2.3.0
+│   │   ├── getrandom v0.3.3
+│   │   │   └── cfg-if v1.0.0
+│   │   ├── once_cell v1.21.3
+│   │   └── windows-sys v0.59.0
+│   │       └── windows-targets v0.52.6
+│   │           └── windows_x86_64_msvc v0.52.6
+│   ├── thiserror v1.0.69
+│   │   └── thiserror-impl v1.0.69 (proc-macro)
+│   │       ├── proc-macro2 v1.0.95
+│   │       │   └── unicode-ident v1.0.18
+│   │       ├── quote v1.0.40
+│   │       │   └── proc-macro2 v1.0.95
+│   │       │       └── unicode-ident v1.0.18
+│   │       └── syn v2.0.101
+│   │           ├── proc-macro2 v1.0.95
+│   │           │   └── unicode-ident v1.0.18
+│   │           ├── quote v1.0.40
+│   │           │   └── proc-macro2 v1.0.95
+│   │           │       └── unicode-ident v1.0.18
+│   │           └── unicode-ident v1.0.18
+│   ├── tokio v1.45.1
+│   │   ├── bytes v1.10.1
+│   │   ├── mio v1.0.4
+│   │   │   └── windows-sys v0.59.0
+│   │   │       └── windows-targets v0.52.6
+│   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   ├── parking_lot v0.12.3
+│   │   │   ├── lock_api v0.4.12
+│   │   │   │   └── scopeguard v1.2.0
+│   │   │   └── parking_lot_core v0.9.10
+│   │   │       ├── cfg-if v1.0.0
+│   │   │       ├── smallvec v1.15.0
+│   │   │       └── windows-targets v0.52.6
+│   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   ├── pin-project-lite v0.2.16
+│   │   ├── socket2 v0.5.9
+│   │   │   └── windows-sys v0.52.0
+│   │   │       └── windows-targets v0.52.6
+│   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   ├── tokio-macros v2.5.0 (proc-macro)
+│   │   │   ├── proc-macro2 v1.0.95
+│   │   │   │   └── unicode-ident v1.0.18
+│   │   │   ├── quote v1.0.40
+│   │   │   │   └── proc-macro2 v1.0.95
+│   │   │   │       └── unicode-ident v1.0.18
+│   │   │   └── syn v2.0.101
+│   │   │       ├── proc-macro2 v1.0.95
+│   │   │       │   └── unicode-ident v1.0.18
+│   │   │       ├── quote v1.0.40
+│   │   │       │   └── proc-macro2 v1.0.95
+│   │   │       │       └── unicode-ident v1.0.18
+│   │   │       └── unicode-ident v1.0.18
+│   │   └── windows-sys v0.52.0
+│   │       └── windows-targets v0.52.6
+│   │           └── windows_x86_64_msvc v0.52.6
+│   ├── uuid v1.17.0
+│   │   ├── getrandom v0.3.3
+│   │   │   └── cfg-if v1.0.0
+│   │   └── serde v1.0.219
+│   │       └── serde_derive v1.0.219 (proc-macro)
+│   │           ├── proc-macro2 v1.0.95
+│   │           │   └── unicode-ident v1.0.18
+│   │           ├── quote v1.0.40
+│   │           │   └── proc-macro2 v1.0.95
+│   │           │       └── unicode-ident v1.0.18
+│   │           └── syn v2.0.101
+│   │               ├── proc-macro2 v1.0.95
+│   │               │   └── unicode-ident v1.0.18
+│   │               ├── quote v1.0.40
+│   │               │   └── proc-macro2 v1.0.95
+│   │               │       └── unicode-ident v1.0.18
+│   │               └── unicode-ident v1.0.18
+│   └── zeroize v1.8.1
+│       └── zeroize_derive v1.4.2 (proc-macro)
+│           ├── proc-macro2 v1.0.95
+│           │   └── unicode-ident v1.0.18
+│           ├── quote v1.0.40
+│           │   └── proc-macro2 v1.0.95
+│           │       └── unicode-ident v1.0.18
+│           └── syn v2.0.101
+│               ├── proc-macro2 v1.0.95
+│               │   └── unicode-ident v1.0.18
+│               ├── quote v1.0.40
+│               │   └── proc-macro2 v1.0.95
+│               │       └── unicode-ident v1.0.18
+│               └── unicode-ident v1.0.18
+├── password_storage v0.1.0 (I:\_Dev\HeikkinenPasswordManager\crates\password_storage)
+│   ├── anyhow v1.0.98
+│   ├── password_core v0.1.0 (I:\_Dev\HeikkinenPasswordManager\crates\password_core)
+│   │   ├── argon2 v0.5.3
+│   │   │   ├── base64ct v1.7.3
+│   │   │   ├── blake2 v0.10.6
+│   │   │   │   └── digest v0.10.7
+│   │   │   │       ├── block-buffer v0.10.4
+│   │   │   │       │   └── generic-array v0.14.7
+│   │   │   │       │       └── typenum v1.18.0
+│   │   │   │       ├── crypto-common v0.1.6
+│   │   │   │       │   ├── generic-array v0.14.7
+│   │   │   │       │   │   └── typenum v1.18.0
+│   │   │   │       │   ├── rand_core v0.6.4
+│   │   │   │       │   │   └── getrandom v0.2.16
+│   │   │   │       │   │       └── cfg-if v1.0.0
+│   │   │   │       │   └── typenum v1.18.0
+│   │   │   │       └── subtle v2.6.1
+│   │   │   ├── cpufeatures v0.2.17
+│   │   │   └── password-hash v0.5.0
+│   │   │       ├── base64ct v1.7.3
+│   │   │       ├── rand_core v0.6.4
+│   │   │       │   └── getrandom v0.2.16
+│   │   │       │       └── cfg-if v1.0.0
+│   │   │       └── subtle v2.6.1
+│   │   ├── base64 v0.22.1
+│   │   ├── bincode v1.3.3
+│   │   │   └── serde v1.0.219
+│   │   │       └── serde_derive v1.0.219 (proc-macro)
+│   │   │           ├── proc-macro2 v1.0.95
+│   │   │           │   └── unicode-ident v1.0.18
+│   │   │           ├── quote v1.0.40
+│   │   │           │   └── proc-macro2 v1.0.95
+│   │   │           │       └── unicode-ident v1.0.18
+│   │   │           └── syn v2.0.101
+│   │   │               ├── proc-macro2 v1.0.95
+│   │   │               │   └── unicode-ident v1.0.18
+│   │   │               ├── quote v1.0.40
+│   │   │               │   └── proc-macro2 v1.0.95
+│   │   │               │       └── unicode-ident v1.0.18
+│   │   │               └── unicode-ident v1.0.18
+│   │   ├── chacha20poly1305 v0.10.1
+│   │   │   ├── aead v0.5.2
+│   │   │   │   ├── crypto-common v0.1.6
+│   │   │   │   │   ├── generic-array v0.14.7
+│   │   │   │   │   │   └── typenum v1.18.0
+│   │   │   │   │   ├── rand_core v0.6.4
+│   │   │   │   │   │   └── getrandom v0.2.16
+│   │   │   │   │   │       └── cfg-if v1.0.0
+│   │   │   │   │   └── typenum v1.18.0
+│   │   │   │   └── generic-array v0.14.7
+│   │   │   │       └── typenum v1.18.0
+│   │   │   ├── chacha20 v0.9.1
+│   │   │   │   ├── cfg-if v1.0.0
+│   │   │   │   ├── cipher v0.4.4
+│   │   │   │   │   ├── crypto-common v0.1.6
+│   │   │   │   │   │   ├── generic-array v0.14.7
+│   │   │   │   │   │   │   └── typenum v1.18.0
+│   │   │   │   │   │   ├── rand_core v0.6.4
+│   │   │   │   │   │   │   └── getrandom v0.2.16
+│   │   │   │   │   │   │       └── cfg-if v1.0.0
+│   │   │   │   │   │   └── typenum v1.18.0
+│   │   │   │   │   ├── inout v0.1.4
+│   │   │   │   │   │   └── generic-array v0.14.7
+│   │   │   │   │   │       └── typenum v1.18.0
+│   │   │   │   │   └── zeroize v1.8.1
+│   │   │   │   │       └── zeroize_derive v1.4.2 (proc-macro)
+│   │   │   │   │           ├── proc-macro2 v1.0.95
+│   │   │   │   │           │   └── unicode-ident v1.0.18
+│   │   │   │   │           ├── quote v1.0.40
+│   │   │   │   │           │   └── proc-macro2 v1.0.95
+│   │   │   │   │           │       └── unicode-ident v1.0.18
+│   │   │   │   │           └── syn v2.0.101
+│   │   │   │   │               ├── proc-macro2 v1.0.95
+│   │   │   │   │               │   └── unicode-ident v1.0.18
+│   │   │   │   │               ├── quote v1.0.40
+│   │   │   │   │               │   └── proc-macro2 v1.0.95
+│   │   │   │   │               │       └── unicode-ident v1.0.18
+│   │   │   │   │               └── unicode-ident v1.0.18
+│   │   │   │   └── cpufeatures v0.2.17
+│   │   │   ├── cipher v0.4.4
+│   │   │   │   ├── crypto-common v0.1.6
+│   │   │   │   │   ├── generic-array v0.14.7
+│   │   │   │   │   │   └── typenum v1.18.0
+│   │   │   │   │   ├── rand_core v0.6.4
+│   │   │   │   │   │   └── getrandom v0.2.16
+│   │   │   │   │   │       └── cfg-if v1.0.0
+│   │   │   │   │   └── typenum v1.18.0
+│   │   │   │   ├── inout v0.1.4
+│   │   │   │   │   └── generic-array v0.14.7
+│   │   │   │   │       └── typenum v1.18.0
+│   │   │   │   └── zeroize v1.8.1
+│   │   │   │       └── zeroize_derive v1.4.2 (proc-macro)
+│   │   │   │           ├── proc-macro2 v1.0.95
+│   │   │   │           │   └── unicode-ident v1.0.18
+│   │   │   │           ├── quote v1.0.40
+│   │   │   │           │   └── proc-macro2 v1.0.95
+│   │   │   │           │       └── unicode-ident v1.0.18
+│   │   │   │           └── syn v2.0.101
+│   │   │   │               ├── proc-macro2 v1.0.95
+│   │   │   │               │   └── unicode-ident v1.0.18
+│   │   │   │               ├── quote v1.0.40
+│   │   │   │               │   └── proc-macro2 v1.0.95
+│   │   │   │               │       └── unicode-ident v1.0.18
+│   │   │   │               └── unicode-ident v1.0.18
+│   │   │   ├── poly1305 v0.8.0
+│   │   │   │   ├── cpufeatures v0.2.17
+│   │   │   │   ├── opaque-debug v0.3.1
+│   │   │   │   └── universal-hash v0.5.1
+│   │   │   │       ├── crypto-common v0.1.6
+│   │   │   │       │   ├── generic-array v0.14.7
+│   │   │   │       │   │   └── typenum v1.18.0
+│   │   │   │       │   ├── rand_core v0.6.4
+│   │   │   │       │   │   └── getrandom v0.2.16
+│   │   │   │       │   │       └── cfg-if v1.0.0
+│   │   │   │       │   └── typenum v1.18.0
+│   │   │   │       └── subtle v2.6.1
+│   │   │   └── zeroize v1.8.1
+│   │   │       └── zeroize_derive v1.4.2 (proc-macro)
+│   │   │           ├── proc-macro2 v1.0.95
+│   │   │           │   └── unicode-ident v1.0.18
+│   │   │           ├── quote v1.0.40
+│   │   │           │   └── proc-macro2 v1.0.95
+│   │   │           │       └── unicode-ident v1.0.18
+│   │   │           └── syn v2.0.101
+│   │   │               ├── proc-macro2 v1.0.95
+│   │   │               │   └── unicode-ident v1.0.18
+│   │   │               ├── quote v1.0.40
+│   │   │               │   └── proc-macro2 v1.0.95
+│   │   │               │       └── unicode-ident v1.0.18
+│   │   │               └── unicode-ident v1.0.18
+│   │   ├── chrono v0.4.41
+│   │   │   ├── num-traits v0.2.19
+│   │   │   ├── serde v1.0.219
+│   │   │   │   └── serde_derive v1.0.219 (proc-macro)
+│   │   │   │       ├── proc-macro2 v1.0.95
+│   │   │   │       │   └── unicode-ident v1.0.18
+│   │   │   │       ├── quote v1.0.40
+│   │   │   │       │   └── proc-macro2 v1.0.95
+│   │   │   │       │       └── unicode-ident v1.0.18
+│   │   │   │       └── syn v2.0.101
+│   │   │   │           ├── proc-macro2 v1.0.95
+│   │   │   │           │   └── unicode-ident v1.0.18
+│   │   │   │           ├── quote v1.0.40
+│   │   │   │           │   └── proc-macro2 v1.0.95
+│   │   │   │           │       └── unicode-ident v1.0.18
+│   │   │   │           └── unicode-ident v1.0.18
+│   │   │   └── windows-link v0.1.1
+│   │   ├── clap v4.5.38
+│   │   │   ├── clap_builder v4.5.38
+│   │   │   │   ├── anstream v0.6.18
+│   │   │   │   │   ├── anstyle v1.0.10
+│   │   │   │   │   ├── anstyle-parse v0.2.6
+│   │   │   │   │   │   └── utf8parse v0.2.2
+│   │   │   │   │   ├── anstyle-query v1.1.2
+│   │   │   │   │   │   └── windows-sys v0.59.0
+│   │   │   │   │   │       └── windows-targets v0.52.6
+│   │   │   │   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   │   │   │   ├── anstyle-wincon v3.0.8
+│   │   │   │   │   │   ├── anstyle v1.0.10
+│   │   │   │   │   │   ├── once_cell_polyfill v1.70.1
+│   │   │   │   │   │   └── windows-sys v0.59.0
+│   │   │   │   │   │       └── windows-targets v0.52.6
+│   │   │   │   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   │   │   │   ├── colorchoice v1.0.3
+│   │   │   │   │   ├── is_terminal_polyfill v1.70.1
+│   │   │   │   │   └── utf8parse v0.2.2
+│   │   │   │   ├── anstyle v1.0.10
+│   │   │   │   ├── clap_lex v0.7.4
+│   │   │   │   └── strsim v0.11.1
+│   │   │   └── clap_derive v4.5.32 (proc-macro)
+│   │   │       ├── heck v0.5.0
+│   │   │       ├── proc-macro2 v1.0.95
+│   │   │       │   └── unicode-ident v1.0.18
+│   │   │       ├── quote v1.0.40
+│   │   │       │   └── proc-macro2 v1.0.95
+│   │   │       │       └── unicode-ident v1.0.18
+│   │   │       └── syn v2.0.101
+│   │   │           ├── proc-macro2 v1.0.95
+│   │   │           │   └── unicode-ident v1.0.18
+│   │   │           ├── quote v1.0.40
+│   │   │           │   └── proc-macro2 v1.0.95
+│   │   │           │       └── unicode-ident v1.0.18
+│   │   │           └── unicode-ident v1.0.18
+│   │   ├── colored v2.2.0
+│   │   │   ├── lazy_static v1.5.0
+│   │   │   └── windows-sys v0.59.0
+│   │   │       └── windows-targets v0.52.6
+│   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   ├── comfy-table v7.1.4
+│   │   │   ├── crossterm v0.28.1
+│   │   │   │   ├── bitflags v2.9.1
+│   │   │   │   ├── crossterm_winapi v0.9.1
+│   │   │   │   │   └── winapi v0.3.9
+│   │   │   │   ├── parking_lot v0.12.3
+│   │   │   │   │   ├── lock_api v0.4.12
+│   │   │   │   │   │   └── scopeguard v1.2.0
+│   │   │   │   │   └── parking_lot_core v0.9.10
+│   │   │   │   │       ├── cfg-if v1.0.0
+│   │   │   │   │       ├── smallvec v1.15.0
+│   │   │   │   │       └── windows-targets v0.52.6
+│   │   │   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   │   │   └── winapi v0.3.9
+│   │   │   ├── unicode-segmentation v1.12.0
+│   │   │   └── unicode-width v0.2.0
+│   │   ├── dirs-next v1.0.2
+│   │   │   ├── cfg-if v1.0.0
+│   │   │   └── dirs-sys-next v0.1.2
+│   │   │       └── winapi v0.3.9
+│   │   ├── env_logger v0.11.8
+│   │   │   ├── anstream v0.6.18
+│   │   │   │   ├── anstyle v1.0.10
+│   │   │   │   ├── anstyle-parse v0.2.6
+│   │   │   │   │   └── utf8parse v0.2.2
+│   │   │   │   ├── anstyle-query v1.1.2
+│   │   │   │   │   └── windows-sys v0.59.0
+│   │   │   │   │       └── windows-targets v0.52.6
+│   │   │   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   │   │   ├── anstyle-wincon v3.0.8
+│   │   │   │   │   ├── anstyle v1.0.10
+│   │   │   │   │   ├── once_cell_polyfill v1.70.1
+│   │   │   │   │   └── windows-sys v0.59.0
+│   │   │   │   │       └── windows-targets v0.52.6
+│   │   │   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   │   │   ├── colorchoice v1.0.3
+│   │   │   │   ├── is_terminal_polyfill v1.70.1
+│   │   │   │   └── utf8parse v0.2.2
+│   │   │   ├── anstyle v1.0.10
+│   │   │   ├── env_filter v0.1.3
+│   │   │   │   ├── log v0.4.27
+│   │   │   │   └── regex v1.11.1
+│   │   │   │       ├── aho-corasick v1.1.3
+│   │   │   │       │   └── memchr v2.7.4
+│   │   │   │       ├── memchr v2.7.4
+│   │   │   │       ├── regex-automata v0.4.9
+│   │   │   │       │   ├── aho-corasick v1.1.3
+│   │   │   │       │   │   └── memchr v2.7.4
+│   │   │   │       │   ├── memchr v2.7.4
+│   │   │   │       │   └── regex-syntax v0.8.5
+│   │   │   │       └── regex-syntax v0.8.5
+│   │   │   ├── jiff v0.2.14
+│   │   │   └── log v0.4.27
+│   │   ├── keyring v3.6.2
+│   │   │   ├── byteorder v1.5.0
+│   │   │   ├── log v0.4.27
+│   │   │   └── windows-sys v0.59.0
+│   │   │       └── windows-targets v0.52.6
+│   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   ├── log v0.4.27
+│   │   ├── once_cell v1.21.3
+│   │   ├── rand_core v0.6.4
+│   │   │   └── getrandom v0.2.16
+│   │   │       └── cfg-if v1.0.0
+│   │   ├── rpassword v7.4.0
+│   │   │   ├── rtoolbox v0.0.3
+│   │   │   │   └── windows-sys v0.52.0
+│   │   │   │       └── windows-targets v0.52.6
+│   │   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   │   └── windows-sys v0.59.0
+│   │   │       └── windows-targets v0.52.6
+│   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   ├── serde v1.0.219
+│   │   │   └── serde_derive v1.0.219 (proc-macro)
+│   │   │       ├── proc-macro2 v1.0.95
+│   │   │       │   └── unicode-ident v1.0.18
+│   │   │       ├── quote v1.0.40
+│   │   │       │   └── proc-macro2 v1.0.95
+│   │   │       │       └── unicode-ident v1.0.18
+│   │   │       └── syn v2.0.101
+│   │   │           ├── proc-macro2 v1.0.95
+│   │   │           │   └── unicode-ident v1.0.18
+│   │   │           ├── quote v1.0.40
+│   │   │           │   └── proc-macro2 v1.0.95
+│   │   │           │       └── unicode-ident v1.0.18
+│   │   │           └── unicode-ident v1.0.18
+│   │   ├── serde_json v1.0.140
+│   │   │   ├── itoa v1.0.15
+│   │   │   ├── memchr v2.7.4
+│   │   │   ├── ryu v1.0.20
+│   │   │   └── serde v1.0.219
+│   │   │       └── serde_derive v1.0.219 (proc-macro)
+│   │   │           ├── proc-macro2 v1.0.95
+│   │   │           │   └── unicode-ident v1.0.18
+│   │   │           ├── quote v1.0.40
+│   │   │           │   └── proc-macro2 v1.0.95
+│   │   │           │       └── unicode-ident v1.0.18
+│   │   │           └── syn v2.0.101
+│   │   │               ├── proc-macro2 v1.0.95
+│   │   │               │   └── unicode-ident v1.0.18
+│   │   │               ├── quote v1.0.40
+│   │   │               │   └── proc-macro2 v1.0.95
+│   │   │               │       └── unicode-ident v1.0.18
+│   │   │               └── unicode-ident v1.0.18
+│   │   ├── tempfile v3.20.0
+│   │   │   ├── fastrand v2.3.0
+│   │   │   ├── getrandom v0.3.3
+│   │   │   │   └── cfg-if v1.0.0
+│   │   │   ├── once_cell v1.21.3
+│   │   │   └── windows-sys v0.59.0
+│   │   │       └── windows-targets v0.52.6
+│   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   ├── thiserror v1.0.69
+│   │   │   └── thiserror-impl v1.0.69 (proc-macro)
+│   │   │       ├── proc-macro2 v1.0.95
+│   │   │       │   └── unicode-ident v1.0.18
+│   │   │       ├── quote v1.0.40
+│   │   │       │   └── proc-macro2 v1.0.95
+│   │   │       │       └── unicode-ident v1.0.18
+│   │   │       └── syn v2.0.101
+│   │   │           ├── proc-macro2 v1.0.95
+│   │   │           │   └── unicode-ident v1.0.18
+│   │   │           ├── quote v1.0.40
+│   │   │           │   └── proc-macro2 v1.0.95
+│   │   │           │       └── unicode-ident v1.0.18
+│   │   │           └── unicode-ident v1.0.18
+│   │   ├── tokio v1.45.1
+│   │   │   ├── bytes v1.10.1
+│   │   │   ├── mio v1.0.4
+│   │   │   │   └── windows-sys v0.59.0
+│   │   │   │       └── windows-targets v0.52.6
+│   │   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   │   ├── parking_lot v0.12.3
+│   │   │   │   ├── lock_api v0.4.12
+│   │   │   │   │   └── scopeguard v1.2.0
+│   │   │   │   └── parking_lot_core v0.9.10
+│   │   │   │       ├── cfg-if v1.0.0
+│   │   │   │       ├── smallvec v1.15.0
+│   │   │   │       └── windows-targets v0.52.6
+│   │   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   │   ├── pin-project-lite v0.2.16
+│   │   │   ├── socket2 v0.5.9
+│   │   │   │   └── windows-sys v0.52.0
+│   │   │   │       └── windows-targets v0.52.6
+│   │   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   │   ├── tokio-macros v2.5.0 (proc-macro)
+│   │   │   │   ├── proc-macro2 v1.0.95
+│   │   │   │   │   └── unicode-ident v1.0.18
+│   │   │   │   ├── quote v1.0.40
+│   │   │   │   │   └── proc-macro2 v1.0.95
+│   │   │   │   │       └── unicode-ident v1.0.18
+│   │   │   │   └── syn v2.0.101
+│   │   │   │       ├── proc-macro2 v1.0.95
+│   │   │   │       │   └── unicode-ident v1.0.18
+│   │   │   │       ├── quote v1.0.40
+│   │   │   │       │   └── proc-macro2 v1.0.95
+│   │   │   │       │       └── unicode-ident v1.0.18
+│   │   │   │       └── unicode-ident v1.0.18
+│   │   │   └── windows-sys v0.52.0
+│   │   │       └── windows-targets v0.52.6
+│   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   ├── uuid v1.17.0
+│   │   │   ├── getrandom v0.3.3
+│   │   │   │   └── cfg-if v1.0.0
+│   │   │   └── serde v1.0.219
+│   │   │       └── serde_derive v1.0.219 (proc-macro)
+│   │   │           ├── proc-macro2 v1.0.95
+│   │   │           │   └── unicode-ident v1.0.18
+│   │   │           ├── quote v1.0.40
+│   │   │           │   └── proc-macro2 v1.0.95
+│   │   │           │       └── unicode-ident v1.0.18
+│   │   │           └── syn v2.0.101
+│   │   │               ├── proc-macro2 v1.0.95
+│   │   │               │   └── unicode-ident v1.0.18
+│   │   │               ├── quote v1.0.40
+│   │   │               │   └── proc-macro2 v1.0.95
+│   │   │               │       └── unicode-ident v1.0.18
+│   │   │               └── unicode-ident v1.0.18
+│   │   └── zeroize v1.8.1
+│   │       └── zeroize_derive v1.4.2 (proc-macro)
+│   │           ├── proc-macro2 v1.0.95
+│   │           │   └── unicode-ident v1.0.18
+│   │           ├── quote v1.0.40
+│   │           │   └── proc-macro2 v1.0.95
+│   │           │       └── unicode-ident v1.0.18
+│   │           └── syn v2.0.101
+│   │               ├── proc-macro2 v1.0.95
+│   │               │   └── unicode-ident v1.0.18
+│   │               ├── quote v1.0.40
+│   │               │   └── proc-macro2 v1.0.95
+│   │               │       └── unicode-ident v1.0.18
+│   │               └── unicode-ident v1.0.18
+│   ├── serde v1.0.219
+│   │   └── serde_derive v1.0.219 (proc-macro)
+│   │       ├── proc-macro2 v1.0.95
+│   │       │   └── unicode-ident v1.0.18
+│   │       ├── quote v1.0.40
+│   │       │   └── proc-macro2 v1.0.95
+│   │       │       └── unicode-ident v1.0.18
+│   │       └── syn v2.0.101
+│   │           ├── proc-macro2 v1.0.95
+│   │           │   └── unicode-ident v1.0.18
+│   │           ├── quote v1.0.40
+│   │           │   └── proc-macro2 v1.0.95
+│   │           │       └── unicode-ident v1.0.18
+│   │           └── unicode-ident v1.0.18
+│   ├── serde_json v1.0.140
+│   │   ├── itoa v1.0.15
+│   │   ├── memchr v2.7.4
+│   │   ├── ryu v1.0.20
+│   │   └── serde v1.0.219
+│   │       └── serde_derive v1.0.219 (proc-macro)
+│   │           ├── proc-macro2 v1.0.95
+│   │           │   └── unicode-ident v1.0.18
+│   │           ├── quote v1.0.40
+│   │           │   └── proc-macro2 v1.0.95
+│   │           │       └── unicode-ident v1.0.18
+│   │           └── syn v2.0.101
+│   │               ├── proc-macro2 v1.0.95
+│   │               │   └── unicode-ident v1.0.18
+│   │               ├── quote v1.0.40
+│   │               │   └── proc-macro2 v1.0.95
+│   │               │       └── unicode-ident v1.0.18
+│   │               └── unicode-ident v1.0.18
+│   └── thiserror v1.0.69
+│       └── thiserror-impl v1.0.69 (proc-macro)
+│           ├── proc-macro2 v1.0.95
+│           │   └── unicode-ident v1.0.18
+│           ├── quote v1.0.40
+│           │   └── proc-macro2 v1.0.95
+│           │       └── unicode-ident v1.0.18
+│           └── syn v2.0.101
+│               ├── proc-macro2 v1.0.95
+│               │   └── unicode-ident v1.0.18
+│               ├── quote v1.0.40
+│               │   └── proc-macro2 v1.0.95
+│               │       └── unicode-ident v1.0.18
+│               └── unicode-ident v1.0.18
+├── rpassword v7.4.0
+│   ├── rtoolbox v0.0.3
+│   │   └── windows-sys v0.52.0
+│   │       └── windows-targets v0.52.6
+│   │           └── windows_x86_64_msvc v0.52.6
+│   └── windows-sys v0.59.0
+│       └── windows-targets v0.52.6
+│           └── windows_x86_64_msvc v0.52.6
+├── thiserror v1.0.69
+│   └── thiserror-impl v1.0.69 (proc-macro)
+│       ├── proc-macro2 v1.0.95
+│       │   └── unicode-ident v1.0.18
+│       ├── quote v1.0.40
+│       │   └── proc-macro2 v1.0.95
+│       │       └── unicode-ident v1.0.18
+│       └── syn v2.0.101
+│           ├── proc-macro2 v1.0.95
+│           │   └── unicode-ident v1.0.18
+│           ├── quote v1.0.40
+│           │   └── proc-macro2 v1.0.95
+│           │       └── unicode-ident v1.0.18
+│           └── unicode-ident v1.0.18
+└── uuid v1.17.0
+    ├── getrandom v0.3.3
+    │   └── cfg-if v1.0.0
+    └── serde v1.0.219
+        └── serde_derive v1.0.219 (proc-macro)
+            ├── proc-macro2 v1.0.95
+            │   └── unicode-ident v1.0.18
+            ├── quote v1.0.40
+            │   └── proc-macro2 v1.0.95
+            │       └── unicode-ident v1.0.18
+            └── syn v2.0.101
+                ├── proc-macro2 v1.0.95
+                │   └── unicode-ident v1.0.18
+                ├── quote v1.0.40
+                │   └── proc-macro2 v1.0.95
+                │       └── unicode-ident v1.0.18
+                └── unicode-ident v1.0.18
+
+password_cli v0.1.0 (I:\_Dev\HeikkinenPasswordManager\crates\password_cli)
+├── base64 v0.22.1
+├── env_logger v0.10.2
+│   ├── humantime v2.2.0
+│   ├── is-terminal v0.4.16
+│   │   └── windows-sys v0.59.0
+│   │       └── windows-targets v0.52.6
+│   │           └── windows_x86_64_msvc v0.52.6
+│   ├── log v0.4.27
+│   ├── regex v1.11.1
+│   │   ├── aho-corasick v1.1.3
+│   │   │   └── memchr v2.7.4
+│   │   ├── memchr v2.7.4
+│   │   ├── regex-automata v0.4.9
+│   │   │   ├── aho-corasick v1.1.3
+│   │   │   │   └── memchr v2.7.4
+│   │   │   ├── memchr v2.7.4
+│   │   │   └── regex-syntax v0.8.5
+│   │   └── regex-syntax v0.8.5
+│   └── termcolor v1.4.1
+│       └── winapi-util v0.1.9
+│           └── windows-sys v0.59.0
+│               └── windows-targets v0.52.6
+│                   └── windows_x86_64_msvc v0.52.6
+├── password_core v0.1.0 (I:\_Dev\HeikkinenPasswordManager\crates\password_core)
+│   ├── argon2 v0.5.3
+│   │   ├── base64ct v1.7.3
+│   │   ├── blake2 v0.10.6
+│   │   │   └── digest v0.10.7
+│   │   │       ├── block-buffer v0.10.4
+│   │   │       │   └── generic-array v0.14.7
+│   │   │       │       └── typenum v1.18.0
+│   │   │       ├── crypto-common v0.1.6
+│   │   │       │   ├── generic-array v0.14.7
+│   │   │       │   │   └── typenum v1.18.0
+│   │   │       │   ├── rand_core v0.6.4
+│   │   │       │   │   └── getrandom v0.2.16
+│   │   │       │   │       └── cfg-if v1.0.0
+│   │   │       │   └── typenum v1.18.0
+│   │   │       └── subtle v2.6.1
+│   │   ├── cpufeatures v0.2.17
+│   │   └── password-hash v0.5.0
+│   │       ├── base64ct v1.7.3
+│   │       ├── rand_core v0.6.4
+│   │       │   └── getrandom v0.2.16
+│   │       │       └── cfg-if v1.0.0
+│   │       └── subtle v2.6.1
+│   ├── base64 v0.22.1
+│   ├── bincode v1.3.3
+│   │   └── serde v1.0.219
+│   │       └── serde_derive v1.0.219 (proc-macro)
+│   │           ├── proc-macro2 v1.0.95
+│   │           │   └── unicode-ident v1.0.18
+│   │           ├── quote v1.0.40
+│   │           │   └── proc-macro2 v1.0.95
+│   │           │       └── unicode-ident v1.0.18
+│   │           └── syn v2.0.101
+│   │               ├── proc-macro2 v1.0.95
+│   │               │   └── unicode-ident v1.0.18
+│   │               ├── quote v1.0.40
+│   │               │   └── proc-macro2 v1.0.95
+│   │               │       └── unicode-ident v1.0.18
+│   │               └── unicode-ident v1.0.18
+│   ├── chacha20poly1305 v0.10.1
+│   │   ├── aead v0.5.2
+│   │   │   ├── crypto-common v0.1.6
+│   │   │   │   ├── generic-array v0.14.7
+│   │   │   │   │   └── typenum v1.18.0
+│   │   │   │   ├── rand_core v0.6.4
+│   │   │   │   │   └── getrandom v0.2.16
+│   │   │   │   │       └── cfg-if v1.0.0
+│   │   │   │   └── typenum v1.18.0
+│   │   │   └── generic-array v0.14.7
+│   │   │       └── typenum v1.18.0
+│   │   ├── chacha20 v0.9.1
+│   │   │   ├── cfg-if v1.0.0
+│   │   │   ├── cipher v0.4.4
+│   │   │   │   ├── crypto-common v0.1.6
+│   │   │   │   │   ├── generic-array v0.14.7
+│   │   │   │   │   │   └── typenum v1.18.0
+│   │   │   │   │   ├── rand_core v0.6.4
+│   │   │   │   │   │   └── getrandom v0.2.16
+│   │   │   │   │   │       └── cfg-if v1.0.0
+│   │   │   │   │   └── typenum v1.18.0
+│   │   │   │   ├── inout v0.1.4
+│   │   │   │   │   └── generic-array v0.14.7
+│   │   │   │   │       └── typenum v1.18.0
+│   │   │   │   └── zeroize v1.8.1
+│   │   │   │       └── zeroize_derive v1.4.2 (proc-macro)
+│   │   │   │           ├── proc-macro2 v1.0.95
+│   │   │   │           │   └── unicode-ident v1.0.18
+│   │   │   │           ├── quote v1.0.40
+│   │   │   │           │   └── proc-macro2 v1.0.95
+│   │   │   │           │       └── unicode-ident v1.0.18
+│   │   │   │           └── syn v2.0.101
+│   │   │   │               ├── proc-macro2 v1.0.95
+│   │   │   │               │   └── unicode-ident v1.0.18
+│   │   │   │               ├── quote v1.0.40
+│   │   │   │               │   └── proc-macro2 v1.0.95
+│   │   │   │               │       └── unicode-ident v1.0.18
+│   │   │   │               └── unicode-ident v1.0.18
+│   │   │   └── cpufeatures v0.2.17
+│   │   ├── cipher v0.4.4
+│   │   │   ├── crypto-common v0.1.6
+│   │   │   │   ├── generic-array v0.14.7
+│   │   │   │   │   └── typenum v1.18.0
+│   │   │   │   ├── rand_core v0.6.4
+│   │   │   │   │   └── getrandom v0.2.16
+│   │   │   │   │       └── cfg-if v1.0.0
+│   │   │   │   └── typenum v1.18.0
+│   │   │   ├── inout v0.1.4
+│   │   │   │   └── generic-array v0.14.7
+│   │   │   │       └── typenum v1.18.0
+│   │   │   └── zeroize v1.8.1
+│   │   │       └── zeroize_derive v1.4.2 (proc-macro)
+│   │   │           ├── proc-macro2 v1.0.95
+│   │   │           │   └── unicode-ident v1.0.18
+│   │   │           ├── quote v1.0.40
+│   │   │           │   └── proc-macro2 v1.0.95
+│   │   │           │       └── unicode-ident v1.0.18
+│   │   │           └── syn v2.0.101
+│   │   │               ├── proc-macro2 v1.0.95
+│   │   │               │   └── unicode-ident v1.0.18
+│   │   │               ├── quote v1.0.40
+│   │   │               │   └── proc-macro2 v1.0.95
+│   │   │               │       └── unicode-ident v1.0.18
+│   │   │               └── unicode-ident v1.0.18
+│   │   ├── poly1305 v0.8.0
+│   │   │   ├── cpufeatures v0.2.17
+│   │   │   ├── opaque-debug v0.3.1
+│   │   │   └── universal-hash v0.5.1
+│   │   │       ├── crypto-common v0.1.6
+│   │   │       │   ├── generic-array v0.14.7
+│   │   │       │   │   └── typenum v1.18.0
+│   │   │       │   ├── rand_core v0.6.4
+│   │   │       │   │   └── getrandom v0.2.16
+│   │   │       │   │       └── cfg-if v1.0.0
+│   │   │       │   └── typenum v1.18.0
+│   │   │       └── subtle v2.6.1
+│   │   └── zeroize v1.8.1
+│   │       └── zeroize_derive v1.4.2 (proc-macro)
+│   │           ├── proc-macro2 v1.0.95
+│   │           │   └── unicode-ident v1.0.18
+│   │           ├── quote v1.0.40
+│   │           │   └── proc-macro2 v1.0.95
+│   │           │       └── unicode-ident v1.0.18
+│   │           └── syn v2.0.101
+│   │               ├── proc-macro2 v1.0.95
+│   │               │   └── unicode-ident v1.0.18
+│   │               ├── quote v1.0.40
+│   │               │   └── proc-macro2 v1.0.95
+│   │               │       └── unicode-ident v1.0.18
+│   │               └── unicode-ident v1.0.18
+│   ├── chrono v0.4.41
+│   │   ├── num-traits v0.2.19
+│   │   ├── serde v1.0.219
+│   │   │   └── serde_derive v1.0.219 (proc-macro)
+│   │   │       ├── proc-macro2 v1.0.95
+│   │   │       │   └── unicode-ident v1.0.18
+│   │   │       ├── quote v1.0.40
+│   │   │       │   └── proc-macro2 v1.0.95
+│   │   │       │       └── unicode-ident v1.0.18
+│   │   │       └── syn v2.0.101
+│   │   │           ├── proc-macro2 v1.0.95
+│   │   │           │   └── unicode-ident v1.0.18
+│   │   │           ├── quote v1.0.40
+│   │   │           │   └── proc-macro2 v1.0.95
+│   │   │           │       └── unicode-ident v1.0.18
+│   │   │           └── unicode-ident v1.0.18
+│   │   └── windows-link v0.1.1
+│   ├── clap v4.5.38
+│   │   ├── clap_builder v4.5.38
+│   │   │   ├── anstream v0.6.18
+│   │   │   │   ├── anstyle v1.0.10
+│   │   │   │   ├── anstyle-parse v0.2.6
+│   │   │   │   │   └── utf8parse v0.2.2
+│   │   │   │   ├── anstyle-query v1.1.2
+│   │   │   │   │   └── windows-sys v0.59.0
+│   │   │   │   │       └── windows-targets v0.52.6
+│   │   │   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   │   │   ├── anstyle-wincon v3.0.8
+│   │   │   │   │   ├── anstyle v1.0.10
+│   │   │   │   │   ├── once_cell_polyfill v1.70.1
+│   │   │   │   │   └── windows-sys v0.59.0
+│   │   │   │   │       └── windows-targets v0.52.6
+│   │   │   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   │   │   ├── colorchoice v1.0.3
+│   │   │   │   ├── is_terminal_polyfill v1.70.1
+│   │   │   │   └── utf8parse v0.2.2
+│   │   │   ├── anstyle v1.0.10
+│   │   │   ├── clap_lex v0.7.4
+│   │   │   └── strsim v0.11.1
+│   │   └── clap_derive v4.5.32 (proc-macro)
+│   │       ├── heck v0.5.0
+│   │       ├── proc-macro2 v1.0.95
+│   │       │   └── unicode-ident v1.0.18
+│   │       ├── quote v1.0.40
+│   │       │   └── proc-macro2 v1.0.95
+│   │       │       └── unicode-ident v1.0.18
+│   │       └── syn v2.0.101
+│   │           ├── proc-macro2 v1.0.95
+│   │           │   └── unicode-ident v1.0.18
+│   │           ├── quote v1.0.40
+│   │           │   └── proc-macro2 v1.0.95
+│   │           │       └── unicode-ident v1.0.18
+│   │           └── unicode-ident v1.0.18
+│   ├── colored v2.2.0
+│   │   ├── lazy_static v1.5.0
+│   │   └── windows-sys v0.59.0
+│   │       └── windows-targets v0.52.6
+│   │           └── windows_x86_64_msvc v0.52.6
+│   ├── comfy-table v7.1.4
+│   │   ├── crossterm v0.28.1
+│   │   │   ├── bitflags v2.9.1
+│   │   │   ├── crossterm_winapi v0.9.1
+│   │   │   │   └── winapi v0.3.9
+│   │   │   ├── parking_lot v0.12.3
+│   │   │   │   ├── lock_api v0.4.12
+│   │   │   │   │   └── scopeguard v1.2.0
+│   │   │   │   └── parking_lot_core v0.9.10
+│   │   │   │       ├── cfg-if v1.0.0
+│   │   │   │       ├── smallvec v1.15.0
+│   │   │   │       └── windows-targets v0.52.6
+│   │   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   │   └── winapi v0.3.9
+│   │   ├── unicode-segmentation v1.12.0
+│   │   └── unicode-width v0.2.0
+│   ├── dirs-next v1.0.2
+│   │   ├── cfg-if v1.0.0
+│   │   └── dirs-sys-next v0.1.2
+│   │       └── winapi v0.3.9
+│   ├── env_logger v0.11.8
+│   │   ├── anstream v0.6.18
+│   │   │   ├── anstyle v1.0.10
+│   │   │   ├── anstyle-parse v0.2.6
+│   │   │   │   └── utf8parse v0.2.2
+│   │   │   ├── anstyle-query v1.1.2
+│   │   │   │   └── windows-sys v0.59.0
+│   │   │   │       └── windows-targets v0.52.6
+│   │   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   │   ├── anstyle-wincon v3.0.8
+│   │   │   │   ├── anstyle v1.0.10
+│   │   │   │   ├── once_cell_polyfill v1.70.1
+│   │   │   │   └── windows-sys v0.59.0
+│   │   │   │       └── windows-targets v0.52.6
+│   │   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   │   ├── colorchoice v1.0.3
+│   │   │   ├── is_terminal_polyfill v1.70.1
+│   │   │   └── utf8parse v0.2.2
+│   │   ├── anstyle v1.0.10
+│   │   ├── env_filter v0.1.3
+│   │   │   ├── log v0.4.27
+│   │   │   └── regex v1.11.1
+│   │   │       ├── aho-corasick v1.1.3
+│   │   │       │   └── memchr v2.7.4
+│   │   │       ├── memchr v2.7.4
+│   │   │       ├── regex-automata v0.4.9
+│   │   │       │   ├── aho-corasick v1.1.3
+│   │   │       │   │   └── memchr v2.7.4
+│   │   │       │   ├── memchr v2.7.4
+│   │   │       │   └── regex-syntax v0.8.5
+│   │   │       └── regex-syntax v0.8.5
+│   │   ├── jiff v0.2.14
+│   │   └── log v0.4.27
+│   ├── keyring v3.6.2
+│   │   ├── byteorder v1.5.0
+│   │   ├── log v0.4.27
+│   │   └── windows-sys v0.59.0
+│   │       └── windows-targets v0.52.6
+│   │           └── windows_x86_64_msvc v0.52.6
+│   ├── log v0.4.27
+│   ├── once_cell v1.21.3
+│   ├── rand_core v0.6.4
+│   │   └── getrandom v0.2.16
+│   │       └── cfg-if v1.0.0
+│   ├── rpassword v7.4.0
+│   │   ├── rtoolbox v0.0.3
+│   │   │   └── windows-sys v0.52.0
+│   │   │       └── windows-targets v0.52.6
+│   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   └── windows-sys v0.59.0
+│   │       └── windows-targets v0.52.6
+│   │           └── windows_x86_64_msvc v0.52.6
+│   ├── serde v1.0.219
+│   │   └── serde_derive v1.0.219 (proc-macro)
+│   │       ├── proc-macro2 v1.0.95
+│   │       │   └── unicode-ident v1.0.18
+│   │       ├── quote v1.0.40
+│   │       │   └── proc-macro2 v1.0.95
+│   │       │       └── unicode-ident v1.0.18
+│   │       └── syn v2.0.101
+│   │           ├── proc-macro2 v1.0.95
+│   │           │   └── unicode-ident v1.0.18
+│   │           ├── quote v1.0.40
+│   │           │   └── proc-macro2 v1.0.95
+│   │           │       └── unicode-ident v1.0.18
+│   │           └── unicode-ident v1.0.18
+│   ├── serde_json v1.0.140
+│   │   ├── itoa v1.0.15
+│   │   ├── memchr v2.7.4
+│   │   ├── ryu v1.0.20
+│   │   └── serde v1.0.219
+│   │       └── serde_derive v1.0.219 (proc-macro)
+│   │           ├── proc-macro2 v1.0.95
+│   │           │   └── unicode-ident v1.0.18
+│   │           ├── quote v1.0.40
+│   │           │   └── proc-macro2 v1.0.95
+│   │           │       └── unicode-ident v1.0.18
+│   │           └── syn v2.0.101
+│   │               ├── proc-macro2 v1.0.95
+│   │               │   └── unicode-ident v1.0.18
+│   │               ├── quote v1.0.40
+│   │               │   └── proc-macro2 v1.0.95
+│   │               │       └── unicode-ident v1.0.18
+│   │               └── unicode-ident v1.0.18
+│   ├── tempfile v3.20.0
+│   │   ├── fastrand v2.3.0
+│   │   ├── getrandom v0.3.3
+│   │   │   └── cfg-if v1.0.0
+│   │   ├── once_cell v1.21.3
+│   │   └── windows-sys v0.59.0
+│   │       └── windows-targets v0.52.6
+│   │           └── windows_x86_64_msvc v0.52.6
+│   ├── thiserror v1.0.69
+│   │   └── thiserror-impl v1.0.69 (proc-macro)
+│   │       ├── proc-macro2 v1.0.95
+│   │       │   └── unicode-ident v1.0.18
+│   │       ├── quote v1.0.40
+│   │       │   └── proc-macro2 v1.0.95
+│   │       │       └── unicode-ident v1.0.18
+│   │       └── syn v2.0.101
+│   │           ├── proc-macro2 v1.0.95
+│   │           │   └── unicode-ident v1.0.18
+│   │           ├── quote v1.0.40
+│   │           │   └── proc-macro2 v1.0.95
+│   │           │       └── unicode-ident v1.0.18
+│   │           └── unicode-ident v1.0.18
+│   ├── tokio v1.45.1
+│   │   ├── bytes v1.10.1
+│   │   ├── mio v1.0.4
+│   │   │   └── windows-sys v0.59.0
+│   │   │       └── windows-targets v0.52.6
+│   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   ├── parking_lot v0.12.3
+│   │   │   ├── lock_api v0.4.12
+│   │   │   │   └── scopeguard v1.2.0
+│   │   │   └── parking_lot_core v0.9.10
+│   │   │       ├── cfg-if v1.0.0
+│   │   │       ├── smallvec v1.15.0
+│   │   │       └── windows-targets v0.52.6
+│   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   ├── pin-project-lite v0.2.16
+│   │   ├── socket2 v0.5.9
+│   │   │   └── windows-sys v0.52.0
+│   │   │       └── windows-targets v0.52.6
+│   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   ├── tokio-macros v2.5.0 (proc-macro)
+│   │   │   ├── proc-macro2 v1.0.95
+│   │   │   │   └── unicode-ident v1.0.18
+│   │   │   ├── quote v1.0.40
+│   │   │   │   └── proc-macro2 v1.0.95
+│   │   │   │       └── unicode-ident v1.0.18
+│   │   │   └── syn v2.0.101
+│   │   │       ├── proc-macro2 v1.0.95
+│   │   │       │   └── unicode-ident v1.0.18
+│   │   │       ├── quote v1.0.40
+│   │   │       │   └── proc-macro2 v1.0.95
+│   │   │       │       └── unicode-ident v1.0.18
+│   │   │       └── unicode-ident v1.0.18
+│   │   └── windows-sys v0.52.0
+│   │       └── windows-targets v0.52.6
+│   │           └── windows_x86_64_msvc v0.52.6
+│   ├── uuid v1.17.0
+│   │   ├── getrandom v0.3.3
+│   │   │   └── cfg-if v1.0.0
+│   │   └── serde v1.0.219
+│   │       └── serde_derive v1.0.219 (proc-macro)
+│   │           ├── proc-macro2 v1.0.95
+│   │           │   └── unicode-ident v1.0.18
+│   │           ├── quote v1.0.40
+│   │           │   └── proc-macro2 v1.0.95
+│   │           │       └── unicode-ident v1.0.18
+│   │           └── syn v2.0.101
+│   │               ├── proc-macro2 v1.0.95
+│   │               │   └── unicode-ident v1.0.18
+│   │               ├── quote v1.0.40
+│   │               │   └── proc-macro2 v1.0.95
+│   │               │       └── unicode-ident v1.0.18
+│   │               └── unicode-ident v1.0.18
+│   └── zeroize v1.8.1
+│       └── zeroize_derive v1.4.2 (proc-macro)
+│           ├── proc-macro2 v1.0.95
+│           │   └── unicode-ident v1.0.18
+│           ├── quote v1.0.40
+│           │   └── proc-macro2 v1.0.95
+│           │       └── unicode-ident v1.0.18
+│           └── syn v2.0.101
+│               ├── proc-macro2 v1.0.95
+│               │   └── unicode-ident v1.0.18
+│               ├── quote v1.0.40
+│               │   └── proc-macro2 v1.0.95
+│               │       └── unicode-ident v1.0.18
+│               └── unicode-ident v1.0.18
+├── rpassword v7.4.0
+│   ├── rtoolbox v0.0.3
+│   │   └── windows-sys v0.52.0
+│   │       └── windows-targets v0.52.6
+│   │           └── windows_x86_64_msvc v0.52.6
+│   └── windows-sys v0.59.0
+│       └── windows-targets v0.52.6
+│           └── windows_x86_64_msvc v0.52.6
+├── serde_json v1.0.140
+│   ├── itoa v1.0.15
+│   ├── memchr v2.7.4
+│   ├── ryu v1.0.20
+│   └── serde v1.0.219
+│       └── serde_derive v1.0.219 (proc-macro)
+│           ├── proc-macro2 v1.0.95
+│           │   └── unicode-ident v1.0.18
+│           ├── quote v1.0.40
+│           │   └── proc-macro2 v1.0.95
+│           │       └── unicode-ident v1.0.18
+│           └── syn v2.0.101
+│               ├── proc-macro2 v1.0.95
+│               │   └── unicode-ident v1.0.18
+│               ├── quote v1.0.40
+│               │   └── proc-macro2 v1.0.95
+│               │       └── unicode-ident v1.0.18
+│               └── unicode-ident v1.0.18
+├── termcolor v1.4.1
+│   └── winapi-util v0.1.9
+│       └── windows-sys v0.59.0
+│           └── windows-targets v0.52.6
+│               └── windows_x86_64_msvc v0.52.6
+└── zeroize v1.8.1
+    └── zeroize_derive v1.4.2 (proc-macro)
+        ├── proc-macro2 v1.0.95
+        │   └── unicode-ident v1.0.18
+        ├── quote v1.0.40
+        │   └── proc-macro2 v1.0.95
+        │       └── unicode-ident v1.0.18
+        └── syn v2.0.101
+            ├── proc-macro2 v1.0.95
+            │   └── unicode-ident v1.0.18
+            ├── quote v1.0.40
+            │   └── proc-macro2 v1.0.95
+            │       └── unicode-ident v1.0.18
+            └── unicode-ident v1.0.18
+
+password_core v0.1.0 (I:\_Dev\HeikkinenPasswordManager\crates\password_core)
+├── argon2 v0.5.3
+│   ├── base64ct v1.7.3
+│   ├── blake2 v0.10.6
+│   │   └── digest v0.10.7
+│   │       ├── block-buffer v0.10.4
+│   │       │   └── generic-array v0.14.7
+│   │       │       └── typenum v1.18.0
+│   │       ├── crypto-common v0.1.6
+│   │       │   ├── generic-array v0.14.7
+│   │       │   │   └── typenum v1.18.0
+│   │       │   ├── rand_core v0.6.4
+│   │       │   │   └── getrandom v0.2.16
+│   │       │   │       └── cfg-if v1.0.0
+│   │       │   └── typenum v1.18.0
+│   │       └── subtle v2.6.1
+│   ├── cpufeatures v0.2.17
+│   └── password-hash v0.5.0
+│       ├── base64ct v1.7.3
+│       ├── rand_core v0.6.4
+│       │   └── getrandom v0.2.16
+│       │       └── cfg-if v1.0.0
+│       └── subtle v2.6.1
+├── base64 v0.22.1
+├── bincode v1.3.3
+│   └── serde v1.0.219
+│       └── serde_derive v1.0.219 (proc-macro)
+│           ├── proc-macro2 v1.0.95
+│           │   └── unicode-ident v1.0.18
+│           ├── quote v1.0.40
+│           │   └── proc-macro2 v1.0.95
+│           │       └── unicode-ident v1.0.18
+│           └── syn v2.0.101
+│               ├── proc-macro2 v1.0.95
+│               │   └── unicode-ident v1.0.18
+│               ├── quote v1.0.40
+│               │   └── proc-macro2 v1.0.95
+│               │       └── unicode-ident v1.0.18
+│               └── unicode-ident v1.0.18
+├── chacha20poly1305 v0.10.1
+│   ├── aead v0.5.2
+│   │   ├── crypto-common v0.1.6
+│   │   │   ├── generic-array v0.14.7
+│   │   │   │   └── typenum v1.18.0
+│   │   │   ├── rand_core v0.6.4
+│   │   │   │   └── getrandom v0.2.16
+│   │   │   │       └── cfg-if v1.0.0
+│   │   │   └── typenum v1.18.0
+│   │   └── generic-array v0.14.7
+│   │       └── typenum v1.18.0
+│   ├── chacha20 v0.9.1
+│   │   ├── cfg-if v1.0.0
+│   │   ├── cipher v0.4.4
+│   │   │   ├── crypto-common v0.1.6
+│   │   │   │   ├── generic-array v0.14.7
+│   │   │   │   │   └── typenum v1.18.0
+│   │   │   │   ├── rand_core v0.6.4
+│   │   │   │   │   └── getrandom v0.2.16
+│   │   │   │   │       └── cfg-if v1.0.0
+│   │   │   │   └── typenum v1.18.0
+│   │   │   ├── inout v0.1.4
+│   │   │   │   └── generic-array v0.14.7
+│   │   │   │       └── typenum v1.18.0
+│   │   │   └── zeroize v1.8.1
+│   │   │       └── zeroize_derive v1.4.2 (proc-macro)
+│   │   │           ├── proc-macro2 v1.0.95
+│   │   │           │   └── unicode-ident v1.0.18
+│   │   │           ├── quote v1.0.40
+│   │   │           │   └── proc-macro2 v1.0.95
+│   │   │           │       └── unicode-ident v1.0.18
+│   │   │           └── syn v2.0.101
+│   │   │               ├── proc-macro2 v1.0.95
+│   │   │               │   └── unicode-ident v1.0.18
+│   │   │               ├── quote v1.0.40
+│   │   │               │   └── proc-macro2 v1.0.95
+│   │   │               │       └── unicode-ident v1.0.18
+│   │   │               └── unicode-ident v1.0.18
+│   │   └── cpufeatures v0.2.17
+│   ├── cipher v0.4.4
+│   │   ├── crypto-common v0.1.6
+│   │   │   ├── generic-array v0.14.7
+│   │   │   │   └── typenum v1.18.0
+│   │   │   ├── rand_core v0.6.4
+│   │   │   │   └── getrandom v0.2.16
+│   │   │   │       └── cfg-if v1.0.0
+│   │   │   └── typenum v1.18.0
+│   │   ├── inout v0.1.4
+│   │   │   └── generic-array v0.14.7
+│   │   │       └── typenum v1.18.0
+│   │   └── zeroize v1.8.1
+│   │       └── zeroize_derive v1.4.2 (proc-macro)
+│   │           ├── proc-macro2 v1.0.95
+│   │           │   └── unicode-ident v1.0.18
+│   │           ├── quote v1.0.40
+│   │           │   └── proc-macro2 v1.0.95
+│   │           │       └── unicode-ident v1.0.18
+│   │           └── syn v2.0.101
+│   │               ├── proc-macro2 v1.0.95
+│   │               │   └── unicode-ident v1.0.18
+│   │               ├── quote v1.0.40
+│   │               │   └── proc-macro2 v1.0.95
+│   │               │       └── unicode-ident v1.0.18
+│   │               └── unicode-ident v1.0.18
+│   ├── poly1305 v0.8.0
+│   │   ├── cpufeatures v0.2.17
+│   │   ├── opaque-debug v0.3.1
+│   │   └── universal-hash v0.5.1
+│   │       ├── crypto-common v0.1.6
+│   │       │   ├── generic-array v0.14.7
+│   │       │   │   └── typenum v1.18.0
+│   │       │   ├── rand_core v0.6.4
+│   │       │   │   └── getrandom v0.2.16
+│   │       │   │       └── cfg-if v1.0.0
+│   │       │   └── typenum v1.18.0
+│   │       └── subtle v2.6.1
+│   └── zeroize v1.8.1
+│       └── zeroize_derive v1.4.2 (proc-macro)
+│           ├── proc-macro2 v1.0.95
+│           │   └── unicode-ident v1.0.18
+│           ├── quote v1.0.40
+│           │   └── proc-macro2 v1.0.95
+│           │       └── unicode-ident v1.0.18
+│           └── syn v2.0.101
+│               ├── proc-macro2 v1.0.95
+│               │   └── unicode-ident v1.0.18
+│               ├── quote v1.0.40
+│               │   └── proc-macro2 v1.0.95
+│               │       └── unicode-ident v1.0.18
+│               └── unicode-ident v1.0.18
+├── chrono v0.4.41
+│   ├── num-traits v0.2.19
+│   ├── serde v1.0.219
+│   │   └── serde_derive v1.0.219 (proc-macro)
+│   │       ├── proc-macro2 v1.0.95
+│   │       │   └── unicode-ident v1.0.18
+│   │       ├── quote v1.0.40
+│   │       │   └── proc-macro2 v1.0.95
+│   │       │       └── unicode-ident v1.0.18
+│   │       └── syn v2.0.101
+│   │           ├── proc-macro2 v1.0.95
+│   │           │   └── unicode-ident v1.0.18
+│   │           ├── quote v1.0.40
+│   │           │   └── proc-macro2 v1.0.95
+│   │           │       └── unicode-ident v1.0.18
+│   │           └── unicode-ident v1.0.18
+│   └── windows-link v0.1.1
+├── clap v4.5.38
+│   ├── clap_builder v4.5.38
+│   │   ├── anstream v0.6.18
+│   │   │   ├── anstyle v1.0.10
+│   │   │   ├── anstyle-parse v0.2.6
+│   │   │   │   └── utf8parse v0.2.2
+│   │   │   ├── anstyle-query v1.1.2
+│   │   │   │   └── windows-sys v0.59.0
+│   │   │   │       └── windows-targets v0.52.6
+│   │   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   │   ├── anstyle-wincon v3.0.8
+│   │   │   │   ├── anstyle v1.0.10
+│   │   │   │   ├── once_cell_polyfill v1.70.1
+│   │   │   │   └── windows-sys v0.59.0
+│   │   │   │       └── windows-targets v0.52.6
+│   │   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   │   ├── colorchoice v1.0.3
+│   │   │   ├── is_terminal_polyfill v1.70.1
+│   │   │   └── utf8parse v0.2.2
+│   │   ├── anstyle v1.0.10
+│   │   ├── clap_lex v0.7.4
+│   │   └── strsim v0.11.1
+│   └── clap_derive v4.5.32 (proc-macro)
+│       ├── heck v0.5.0
+│       ├── proc-macro2 v1.0.95
+│       │   └── unicode-ident v1.0.18
+│       ├── quote v1.0.40
+│       │   └── proc-macro2 v1.0.95
+│       │       └── unicode-ident v1.0.18
+│       └── syn v2.0.101
+│           ├── proc-macro2 v1.0.95
+│           │   └── unicode-ident v1.0.18
+│           ├── quote v1.0.40
+│           │   └── proc-macro2 v1.0.95
+│           │       └── unicode-ident v1.0.18
+│           └── unicode-ident v1.0.18
+├── colored v2.2.0
+│   ├── lazy_static v1.5.0
+│   └── windows-sys v0.59.0
+│       └── windows-targets v0.52.6
+│           └── windows_x86_64_msvc v0.52.6
+├── comfy-table v7.1.4
+│   ├── crossterm v0.28.1
+│   │   ├── bitflags v2.9.1
+│   │   ├── crossterm_winapi v0.9.1
+│   │   │   └── winapi v0.3.9
+│   │   ├── parking_lot v0.12.3
+│   │   │   ├── lock_api v0.4.12
+│   │   │   │   └── scopeguard v1.2.0
+│   │   │   └── parking_lot_core v0.9.10
+│   │   │       ├── cfg-if v1.0.0
+│   │   │       ├── smallvec v1.15.0
+│   │   │       └── windows-targets v0.52.6
+│   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   └── winapi v0.3.9
+│   ├── unicode-segmentation v1.12.0
+│   └── unicode-width v0.2.0
+├── dirs-next v1.0.2
+│   ├── cfg-if v1.0.0
+│   └── dirs-sys-next v0.1.2
+│       └── winapi v0.3.9
+├── env_logger v0.11.8
+│   ├── anstream v0.6.18
+│   │   ├── anstyle v1.0.10
+│   │   ├── anstyle-parse v0.2.6
+│   │   │   └── utf8parse v0.2.2
+│   │   ├── anstyle-query v1.1.2
+│   │   │   └── windows-sys v0.59.0
+│   │   │       └── windows-targets v0.52.6
+│   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   ├── anstyle-wincon v3.0.8
+│   │   │   ├── anstyle v1.0.10
+│   │   │   ├── once_cell_polyfill v1.70.1
+│   │   │   └── windows-sys v0.59.0
+│   │   │       └── windows-targets v0.52.6
+│   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   ├── colorchoice v1.0.3
+│   │   ├── is_terminal_polyfill v1.70.1
+│   │   └── utf8parse v0.2.2
+│   ├── anstyle v1.0.10
+│   ├── env_filter v0.1.3
+│   │   ├── log v0.4.27
+│   │   └── regex v1.11.1
+│   │       ├── aho-corasick v1.1.3
+│   │       │   └── memchr v2.7.4
+│   │       ├── memchr v2.7.4
+│   │       ├── regex-automata v0.4.9
+│   │       │   ├── aho-corasick v1.1.3
+│   │       │   │   └── memchr v2.7.4
+│   │       │   ├── memchr v2.7.4
+│   │       │   └── regex-syntax v0.8.5
+│   │       └── regex-syntax v0.8.5
+│   ├── jiff v0.2.14
+│   └── log v0.4.27
+├── keyring v3.6.2
+│   ├── byteorder v1.5.0
+│   ├── log v0.4.27
+│   └── windows-sys v0.59.0
+│       └── windows-targets v0.52.6
+│           └── windows_x86_64_msvc v0.52.6
+├── log v0.4.27
+├── once_cell v1.21.3
+├── rand_core v0.6.4
+│   └── getrandom v0.2.16
+│       └── cfg-if v1.0.0
+├── rpassword v7.4.0
+│   ├── rtoolbox v0.0.3
+│   │   └── windows-sys v0.52.0
+│   │       └── windows-targets v0.52.6
+│   │           └── windows_x86_64_msvc v0.52.6
+│   └── windows-sys v0.59.0
+│       └── windows-targets v0.52.6
+│           └── windows_x86_64_msvc v0.52.6
+├── serde v1.0.219
+│   └── serde_derive v1.0.219 (proc-macro)
+│       ├── proc-macro2 v1.0.95
+│       │   └── unicode-ident v1.0.18
+│       ├── quote v1.0.40
+│       │   └── proc-macro2 v1.0.95
+│       │       └── unicode-ident v1.0.18
+│       └── syn v2.0.101
+│           ├── proc-macro2 v1.0.95
+│           │   └── unicode-ident v1.0.18
+│           ├── quote v1.0.40
+│           │   └── proc-macro2 v1.0.95
+│           │       └── unicode-ident v1.0.18
+│           └── unicode-ident v1.0.18
+├── serde_json v1.0.140
+│   ├── itoa v1.0.15
+│   ├── memchr v2.7.4
+│   ├── ryu v1.0.20
+│   └── serde v1.0.219
+│       └── serde_derive v1.0.219 (proc-macro)
+│           ├── proc-macro2 v1.0.95
+│           │   └── unicode-ident v1.0.18
+│           ├── quote v1.0.40
+│           │   └── proc-macro2 v1.0.95
+│           │       └── unicode-ident v1.0.18
+│           └── syn v2.0.101
+│               ├── proc-macro2 v1.0.95
+│               │   └── unicode-ident v1.0.18
+│               ├── quote v1.0.40
+│               │   └── proc-macro2 v1.0.95
+│               │       └── unicode-ident v1.0.18
+│               └── unicode-ident v1.0.18
+├── tempfile v3.20.0
+│   ├── fastrand v2.3.0
+│   ├── getrandom v0.3.3
+│   │   └── cfg-if v1.0.0
+│   ├── once_cell v1.21.3
+│   └── windows-sys v0.59.0
+│       └── windows-targets v0.52.6
+│           └── windows_x86_64_msvc v0.52.6
+├── thiserror v1.0.69
+│   └── thiserror-impl v1.0.69 (proc-macro)
+│       ├── proc-macro2 v1.0.95
+│       │   └── unicode-ident v1.0.18
+│       ├── quote v1.0.40
+│       │   └── proc-macro2 v1.0.95
+│       │       └── unicode-ident v1.0.18
+│       └── syn v2.0.101
+│           ├── proc-macro2 v1.0.95
+│           │   └── unicode-ident v1.0.18
+│           ├── quote v1.0.40
+│           │   └── proc-macro2 v1.0.95
+│           │       └── unicode-ident v1.0.18
+│           └── unicode-ident v1.0.18
+├── tokio v1.45.1
+│   ├── bytes v1.10.1
+│   ├── mio v1.0.4
+│   │   └── windows-sys v0.59.0
+│   │       └── windows-targets v0.52.6
+│   │           └── windows_x86_64_msvc v0.52.6
+│   ├── parking_lot v0.12.3
+│   │   ├── lock_api v0.4.12
+│   │   │   └── scopeguard v1.2.0
+│   │   └── parking_lot_core v0.9.10
+│   │       ├── cfg-if v1.0.0
+│   │       ├── smallvec v1.15.0
+│   │       └── windows-targets v0.52.6
+│   │           └── windows_x86_64_msvc v0.52.6
+│   ├── pin-project-lite v0.2.16
+│   ├── socket2 v0.5.9
+│   │   └── windows-sys v0.52.0
+│   │       └── windows-targets v0.52.6
+│   │           └── windows_x86_64_msvc v0.52.6
+│   ├── tokio-macros v2.5.0 (proc-macro)
+│   │   ├── proc-macro2 v1.0.95
+│   │   │   └── unicode-ident v1.0.18
+│   │   ├── quote v1.0.40
+│   │   │   └── proc-macro2 v1.0.95
+│   │   │       └── unicode-ident v1.0.18
+│   │   └── syn v2.0.101
+│   │       ├── proc-macro2 v1.0.95
+│   │       │   └── unicode-ident v1.0.18
+│   │       ├── quote v1.0.40
+│   │       │   └── proc-macro2 v1.0.95
+│   │       │       └── unicode-ident v1.0.18
+│   │       └── unicode-ident v1.0.18
+│   └── windows-sys v0.52.0
+│       └── windows-targets v0.52.6
+│           └── windows_x86_64_msvc v0.52.6
+├── uuid v1.17.0
+│   ├── getrandom v0.3.3
+│   │   └── cfg-if v1.0.0
+│   └── serde v1.0.219
+│       └── serde_derive v1.0.219 (proc-macro)
+│           ├── proc-macro2 v1.0.95
+│           │   └── unicode-ident v1.0.18
+│           ├── quote v1.0.40
+│           │   └── proc-macro2 v1.0.95
+│           │       └── unicode-ident v1.0.18
+│           └── syn v2.0.101
+│               ├── proc-macro2 v1.0.95
+│               │   └── unicode-ident v1.0.18
+│               ├── quote v1.0.40
+│               │   └── proc-macro2 v1.0.95
+│               │       └── unicode-ident v1.0.18
+│               └── unicode-ident v1.0.18
+└── zeroize v1.8.1
+    └── zeroize_derive v1.4.2 (proc-macro)
+        ├── proc-macro2 v1.0.95
+        │   └── unicode-ident v1.0.18
+        ├── quote v1.0.40
+        │   └── proc-macro2 v1.0.95
+        │       └── unicode-ident v1.0.18
+        └── syn v2.0.101
+            ├── proc-macro2 v1.0.95
+            │   └── unicode-ident v1.0.18
+            ├── quote v1.0.40
+            │   └── proc-macro2 v1.0.95
+            │       └── unicode-ident v1.0.18
+            └── unicode-ident v1.0.18
+
+password_storage v0.1.0 (I:\_Dev\HeikkinenPasswordManager\crates\password_storage)
+├── anyhow v1.0.98
+├── password_core v0.1.0 (I:\_Dev\HeikkinenPasswordManager\crates\password_core)
+│   ├── argon2 v0.5.3
+│   │   ├── base64ct v1.7.3
+│   │   ├── blake2 v0.10.6
+│   │   │   └── digest v0.10.7
+│   │   │       ├── block-buffer v0.10.4
+│   │   │       │   └── generic-array v0.14.7
+│   │   │       │       └── typenum v1.18.0
+│   │   │       ├── crypto-common v0.1.6
+│   │   │       │   ├── generic-array v0.14.7
+│   │   │       │   │   └── typenum v1.18.0
+│   │   │       │   ├── rand_core v0.6.4
+│   │   │       │   │   └── getrandom v0.2.16
+│   │   │       │   │       └── cfg-if v1.0.0
+│   │   │       │   └── typenum v1.18.0
+│   │   │       └── subtle v2.6.1
+│   │   ├── cpufeatures v0.2.17
+│   │   └── password-hash v0.5.0
+│   │       ├── base64ct v1.7.3
+│   │       ├── rand_core v0.6.4
+│   │       │   └── getrandom v0.2.16
+│   │       │       └── cfg-if v1.0.0
+│   │       └── subtle v2.6.1
+│   ├── base64 v0.22.1
+│   ├── bincode v1.3.3
+│   │   └── serde v1.0.219
+│   │       └── serde_derive v1.0.219 (proc-macro)
+│   │           ├── proc-macro2 v1.0.95
+│   │           │   └── unicode-ident v1.0.18
+│   │           ├── quote v1.0.40
+│   │           │   └── proc-macro2 v1.0.95
+│   │           │       └── unicode-ident v1.0.18
+│   │           └── syn v2.0.101
+│   │               ├── proc-macro2 v1.0.95
+│   │               │   └── unicode-ident v1.0.18
+│   │               ├── quote v1.0.40
+│   │               │   └── proc-macro2 v1.0.95
+│   │               │       └── unicode-ident v1.0.18
+│   │               └── unicode-ident v1.0.18
+│   ├── chacha20poly1305 v0.10.1
+│   │   ├── aead v0.5.2
+│   │   │   ├── crypto-common v0.1.6
+│   │   │   │   ├── generic-array v0.14.7
+│   │   │   │   │   └── typenum v1.18.0
+│   │   │   │   ├── rand_core v0.6.4
+│   │   │   │   │   └── getrandom v0.2.16
+│   │   │   │   │       └── cfg-if v1.0.0
+│   │   │   │   └── typenum v1.18.0
+│   │   │   └── generic-array v0.14.7
+│   │   │       └── typenum v1.18.0
+│   │   ├── chacha20 v0.9.1
+│   │   │   ├── cfg-if v1.0.0
+│   │   │   ├── cipher v0.4.4
+│   │   │   │   ├── crypto-common v0.1.6
+│   │   │   │   │   ├── generic-array v0.14.7
+│   │   │   │   │   │   └── typenum v1.18.0
+│   │   │   │   │   ├── rand_core v0.6.4
+│   │   │   │   │   │   └── getrandom v0.2.16
+│   │   │   │   │   │       └── cfg-if v1.0.0
+│   │   │   │   │   └── typenum v1.18.0
+│   │   │   │   ├── inout v0.1.4
+│   │   │   │   │   └── generic-array v0.14.7
+│   │   │   │   │       └── typenum v1.18.0
+│   │   │   │   └── zeroize v1.8.1
+│   │   │   │       └── zeroize_derive v1.4.2 (proc-macro)
+│   │   │   │           ├── proc-macro2 v1.0.95
+│   │   │   │           │   └── unicode-ident v1.0.18
+│   │   │   │           ├── quote v1.0.40
+│   │   │   │           │   └── proc-macro2 v1.0.95
+│   │   │   │           │       └── unicode-ident v1.0.18
+│   │   │   │           └── syn v2.0.101
+│   │   │   │               ├── proc-macro2 v1.0.95
+│   │   │   │               │   └── unicode-ident v1.0.18
+│   │   │   │               ├── quote v1.0.40
+│   │   │   │               │   └── proc-macro2 v1.0.95
+│   │   │   │               │       └── unicode-ident v1.0.18
+│   │   │   │               └── unicode-ident v1.0.18
+│   │   │   └── cpufeatures v0.2.17
+│   │   ├── cipher v0.4.4
+│   │   │   ├── crypto-common v0.1.6
+│   │   │   │   ├── generic-array v0.14.7
+│   │   │   │   │   └── typenum v1.18.0
+│   │   │   │   ├── rand_core v0.6.4
+│   │   │   │   │   └── getrandom v0.2.16
+│   │   │   │   │       └── cfg-if v1.0.0
+│   │   │   │   └── typenum v1.18.0
+│   │   │   ├── inout v0.1.4
+│   │   │   │   └── generic-array v0.14.7
+│   │   │   │       └── typenum v1.18.0
+│   │   │   └── zeroize v1.8.1
+│   │   │       └── zeroize_derive v1.4.2 (proc-macro)
+│   │   │           ├── proc-macro2 v1.0.95
+│   │   │           │   └── unicode-ident v1.0.18
+│   │   │           ├── quote v1.0.40
+│   │   │           │   └── proc-macro2 v1.0.95
+│   │   │           │       └── unicode-ident v1.0.18
+│   │   │           └── syn v2.0.101
+│   │   │               ├── proc-macro2 v1.0.95
+│   │   │               │   └── unicode-ident v1.0.18
+│   │   │               ├── quote v1.0.40
+│   │   │               │   └── proc-macro2 v1.0.95
+│   │   │               │       └── unicode-ident v1.0.18
+│   │   │               └── unicode-ident v1.0.18
+│   │   ├── poly1305 v0.8.0
+│   │   │   ├── cpufeatures v0.2.17
+│   │   │   ├── opaque-debug v0.3.1
+│   │   │   └── universal-hash v0.5.1
+│   │   │       ├── crypto-common v0.1.6
+│   │   │       │   ├── generic-array v0.14.7
+│   │   │       │   │   └── typenum v1.18.0
+│   │   │       │   ├── rand_core v0.6.4
+│   │   │       │   │   └── getrandom v0.2.16
+│   │   │       │   │       └── cfg-if v1.0.0
+│   │   │       │   └── typenum v1.18.0
+│   │   │       └── subtle v2.6.1
+│   │   └── zeroize v1.8.1
+│   │       └── zeroize_derive v1.4.2 (proc-macro)
+│   │           ├── proc-macro2 v1.0.95
+│   │           │   └── unicode-ident v1.0.18
+│   │           ├── quote v1.0.40
+│   │           │   └── proc-macro2 v1.0.95
+│   │           │       └── unicode-ident v1.0.18
+│   │           └── syn v2.0.101
+│   │               ├── proc-macro2 v1.0.95
+│   │               │   └── unicode-ident v1.0.18
+│   │               ├── quote v1.0.40
+│   │               │   └── proc-macro2 v1.0.95
+│   │               │       └── unicode-ident v1.0.18
+│   │               └── unicode-ident v1.0.18
+│   ├── chrono v0.4.41
+│   │   ├── num-traits v0.2.19
+│   │   ├── serde v1.0.219
+│   │   │   └── serde_derive v1.0.219 (proc-macro)
+│   │   │       ├── proc-macro2 v1.0.95
+│   │   │       │   └── unicode-ident v1.0.18
+│   │   │       ├── quote v1.0.40
+│   │   │       │   └── proc-macro2 v1.0.95
+│   │   │       │       └── unicode-ident v1.0.18
+│   │   │       └── syn v2.0.101
+│   │   │           ├── proc-macro2 v1.0.95
+│   │   │           │   └── unicode-ident v1.0.18
+│   │   │           ├── quote v1.0.40
+│   │   │           │   └── proc-macro2 v1.0.95
+│   │   │           │       └── unicode-ident v1.0.18
+│   │   │           └── unicode-ident v1.0.18
+│   │   └── windows-link v0.1.1
+│   ├── clap v4.5.38
+│   │   ├── clap_builder v4.5.38
+│   │   │   ├── anstream v0.6.18
+│   │   │   │   ├── anstyle v1.0.10
+│   │   │   │   ├── anstyle-parse v0.2.6
+│   │   │   │   │   └── utf8parse v0.2.2
+│   │   │   │   ├── anstyle-query v1.1.2
+│   │   │   │   │   └── windows-sys v0.59.0
+│   │   │   │   │       └── windows-targets v0.52.6
+│   │   │   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   │   │   ├── anstyle-wincon v3.0.8
+│   │   │   │   │   ├── anstyle v1.0.10
+│   │   │   │   │   ├── once_cell_polyfill v1.70.1
+│   │   │   │   │   └── windows-sys v0.59.0
+│   │   │   │   │       └── windows-targets v0.52.6
+│   │   │   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   │   │   ├── colorchoice v1.0.3
+│   │   │   │   ├── is_terminal_polyfill v1.70.1
+│   │   │   │   └── utf8parse v0.2.2
+│   │   │   ├── anstyle v1.0.10
+│   │   │   ├── clap_lex v0.7.4
+│   │   │   └── strsim v0.11.1
+│   │   └── clap_derive v4.5.32 (proc-macro)
+│   │       ├── heck v0.5.0
+│   │       ├── proc-macro2 v1.0.95
+│   │       │   └── unicode-ident v1.0.18
+│   │       ├── quote v1.0.40
+│   │       │   └── proc-macro2 v1.0.95
+│   │       │       └── unicode-ident v1.0.18
+│   │       └── syn v2.0.101
+│   │           ├── proc-macro2 v1.0.95
+│   │           │   └── unicode-ident v1.0.18
+│   │           ├── quote v1.0.40
+│   │           │   └── proc-macro2 v1.0.95
+│   │           │       └── unicode-ident v1.0.18
+│   │           └── unicode-ident v1.0.18
+│   ├── colored v2.2.0
+│   │   ├── lazy_static v1.5.0
+│   │   └── windows-sys v0.59.0
+│   │       └── windows-targets v0.52.6
+│   │           └── windows_x86_64_msvc v0.52.6
+│   ├── comfy-table v7.1.4
+│   │   ├── crossterm v0.28.1
+│   │   │   ├── bitflags v2.9.1
+│   │   │   ├── crossterm_winapi v0.9.1
+│   │   │   │   └── winapi v0.3.9
+│   │   │   ├── parking_lot v0.12.3
+│   │   │   │   ├── lock_api v0.4.12
+│   │   │   │   │   └── scopeguard v1.2.0
+│   │   │   │   └── parking_lot_core v0.9.10
+│   │   │   │       ├── cfg-if v1.0.0
+│   │   │   │       ├── smallvec v1.15.0
+│   │   │   │       └── windows-targets v0.52.6
+│   │   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   │   └── winapi v0.3.9
+│   │   ├── unicode-segmentation v1.12.0
+│   │   └── unicode-width v0.2.0
+│   ├── dirs-next v1.0.2
+│   │   ├── cfg-if v1.0.0
+│   │   └── dirs-sys-next v0.1.2
+│   │       └── winapi v0.3.9
+│   ├── env_logger v0.11.8
+│   │   ├── anstream v0.6.18
+│   │   │   ├── anstyle v1.0.10
+│   │   │   ├── anstyle-parse v0.2.6
+│   │   │   │   └── utf8parse v0.2.2
+│   │   │   ├── anstyle-query v1.1.2
+│   │   │   │   └── windows-sys v0.59.0
+│   │   │   │       └── windows-targets v0.52.6
+│   │   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   │   ├── anstyle-wincon v3.0.8
+│   │   │   │   ├── anstyle v1.0.10
+│   │   │   │   ├── once_cell_polyfill v1.70.1
+│   │   │   │   └── windows-sys v0.59.0
+│   │   │   │       └── windows-targets v0.52.6
+│   │   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   │   ├── colorchoice v1.0.3
+│   │   │   ├── is_terminal_polyfill v1.70.1
+│   │   │   └── utf8parse v0.2.2
+│   │   ├── anstyle v1.0.10
+│   │   ├── env_filter v0.1.3
+│   │   │   ├── log v0.4.27
+│   │   │   └── regex v1.11.1
+│   │   │       ├── aho-corasick v1.1.3
+│   │   │       │   └── memchr v2.7.4
+│   │   │       ├── memchr v2.7.4
+│   │   │       ├── regex-automata v0.4.9
+│   │   │       │   ├── aho-corasick v1.1.3
+│   │   │       │   │   └── memchr v2.7.4
+│   │   │       │   ├── memchr v2.7.4
+│   │   │       │   └── regex-syntax v0.8.5
+│   │   │       └── regex-syntax v0.8.5
+│   │   ├── jiff v0.2.14
+│   │   └── log v0.4.27
+│   ├── keyring v3.6.2
+│   │   ├── byteorder v1.5.0
+│   │   ├── log v0.4.27
+│   │   └── windows-sys v0.59.0
+│   │       └── windows-targets v0.52.6
+│   │           └── windows_x86_64_msvc v0.52.6
+│   ├── log v0.4.27
+│   ├── once_cell v1.21.3
+│   ├── rand_core v0.6.4
+│   │   └── getrandom v0.2.16
+│   │       └── cfg-if v1.0.0
+│   ├── rpassword v7.4.0
+│   │   ├── rtoolbox v0.0.3
+│   │   │   └── windows-sys v0.52.0
+│   │   │       └── windows-targets v0.52.6
+│   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   └── windows-sys v0.59.0
+│   │       └── windows-targets v0.52.6
+│   │           └── windows_x86_64_msvc v0.52.6
+│   ├── serde v1.0.219
+│   │   └── serde_derive v1.0.219 (proc-macro)
+│   │       ├── proc-macro2 v1.0.95
+│   │       │   └── unicode-ident v1.0.18
+│   │       ├── quote v1.0.40
+│   │       │   └── proc-macro2 v1.0.95
+│   │       │       └── unicode-ident v1.0.18
+│   │       └── syn v2.0.101
+│   │           ├── proc-macro2 v1.0.95
+│   │           │   └── unicode-ident v1.0.18
+│   │           ├── quote v1.0.40
+│   │           │   └── proc-macro2 v1.0.95
+│   │           │       └── unicode-ident v1.0.18
+│   │           └── unicode-ident v1.0.18
+│   ├── serde_json v1.0.140
+│   │   ├── itoa v1.0.15
+│   │   ├── memchr v2.7.4
+│   │   ├── ryu v1.0.20
+│   │   └── serde v1.0.219
+│   │       └── serde_derive v1.0.219 (proc-macro)
+│   │           ├── proc-macro2 v1.0.95
+│   │           │   └── unicode-ident v1.0.18
+│   │           ├── quote v1.0.40
+│   │           │   └── proc-macro2 v1.0.95
+│   │           │       └── unicode-ident v1.0.18
+│   │           └── syn v2.0.101
+│   │               ├── proc-macro2 v1.0.95
+│   │               │   └── unicode-ident v1.0.18
+│   │               ├── quote v1.0.40
+│   │               │   └── proc-macro2 v1.0.95
+│   │               │       └── unicode-ident v1.0.18
+│   │               └── unicode-ident v1.0.18
+│   ├── tempfile v3.20.0
+│   │   ├── fastrand v2.3.0
+│   │   ├── getrandom v0.3.3
+│   │   │   └── cfg-if v1.0.0
+│   │   ├── once_cell v1.21.3
+│   │   └── windows-sys v0.59.0
+│   │       └── windows-targets v0.52.6
+│   │           └── windows_x86_64_msvc v0.52.6
+│   ├── thiserror v1.0.69
+│   │   └── thiserror-impl v1.0.69 (proc-macro)
+│   │       ├── proc-macro2 v1.0.95
+│   │       │   └── unicode-ident v1.0.18
+│   │       ├── quote v1.0.40
+│   │       │   └── proc-macro2 v1.0.95
+│   │       │       └── unicode-ident v1.0.18
+│   │       └── syn v2.0.101
+│   │           ├── proc-macro2 v1.0.95
+│   │           │   └── unicode-ident v1.0.18
+│   │           ├── quote v1.0.40
+│   │           │   └── proc-macro2 v1.0.95
+│   │           │       └── unicode-ident v1.0.18
+│   │           └── unicode-ident v1.0.18
+│   ├── tokio v1.45.1
+│   │   ├── bytes v1.10.1
+│   │   ├── mio v1.0.4
+│   │   │   └── windows-sys v0.59.0
+│   │   │       └── windows-targets v0.52.6
+│   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   ├── parking_lot v0.12.3
+│   │   │   ├── lock_api v0.4.12
+│   │   │   │   └── scopeguard v1.2.0
+│   │   │   └── parking_lot_core v0.9.10
+│   │   │       ├── cfg-if v1.0.0
+│   │   │       ├── smallvec v1.15.0
+│   │   │       └── windows-targets v0.52.6
+│   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   ├── pin-project-lite v0.2.16
+│   │   ├── socket2 v0.5.9
+│   │   │   └── windows-sys v0.52.0
+│   │   │       └── windows-targets v0.52.6
+│   │   │           └── windows_x86_64_msvc v0.52.6
+│   │   ├── tokio-macros v2.5.0 (proc-macro)
+│   │   │   ├── proc-macro2 v1.0.95
+│   │   │   │   └── unicode-ident v1.0.18
+│   │   │   ├── quote v1.0.40
+│   │   │   │   └── proc-macro2 v1.0.95
+│   │   │   │       └── unicode-ident v1.0.18
+│   │   │   └── syn v2.0.101
+│   │   │       ├── proc-macro2 v1.0.95
+│   │   │       │   └── unicode-ident v1.0.18
+│   │   │       ├── quote v1.0.40
+│   │   │       │   └── proc-macro2 v1.0.95
+│   │   │       │       └── unicode-ident v1.0.18
+│   │   │       └── unicode-ident v1.0.18
+│   │   └── windows-sys v0.52.0
+│   │       └── windows-targets v0.52.6
+│   │           └── windows_x86_64_msvc v0.52.6
+│   ├── uuid v1.17.0
+│   │   ├── getrandom v0.3.3
+│   │   │   └── cfg-if v1.0.0
+│   │   └── serde v1.0.219
+│   │       └── serde_derive v1.0.219 (proc-macro)
+│   │           ├── proc-macro2 v1.0.95
+│   │           │   └── unicode-ident v1.0.18
+│   │           ├── quote v1.0.40
+│   │           │   └── proc-macro2 v1.0.95
+│   │           │       └── unicode-ident v1.0.18
+│   │           └── syn v2.0.101
+│   │               ├── proc-macro2 v1.0.95
+│   │               │   └── unicode-ident v1.0.18
+│   │               ├── quote v1.0.40
+│   │               │   └── proc-macro2 v1.0.95
+│   │               │       └── unicode-ident v1.0.18
+│   │               └── unicode-ident v1.0.18
+│   └── zeroize v1.8.1
+│       └── zeroize_derive v1.4.2 (proc-macro)
+│           ├── proc-macro2 v1.0.95
+│           │   └── unicode-ident v1.0.18
+│           ├── quote v1.0.40
+│           │   └── proc-macro2 v1.0.95
+│           │       └── unicode-ident v1.0.18
+│           └── syn v2.0.101
+│               ├── proc-macro2 v1.0.95
+│               │   └── unicode-ident v1.0.18
+│               ├── quote v1.0.40
+│               │   └── proc-macro2 v1.0.95
+│               │       └── unicode-ident v1.0.18
+│               └── unicode-ident v1.0.18
+├── serde v1.0.219
+│   └── serde_derive v1.0.219 (proc-macro)
+│       ├── proc-macro2 v1.0.95
+│       │   └── unicode-ident v1.0.18
+│       ├── quote v1.0.40
+│       │   └── proc-macro2 v1.0.95
+│       │       └── unicode-ident v1.0.18
+│       └── syn v2.0.101
+│           ├── proc-macro2 v1.0.95
+│           │   └── unicode-ident v1.0.18
+│           ├── quote v1.0.40
+│           │   └── proc-macro2 v1.0.95
+│           │       └── unicode-ident v1.0.18
+│           └── unicode-ident v1.0.18
+├── serde_json v1.0.140
+│   ├── itoa v1.0.15
+│   ├── memchr v2.7.4
+│   ├── ryu v1.0.20
+│   └── serde v1.0.219
+│       └── serde_derive v1.0.219 (proc-macro)
+│           ├── proc-macro2 v1.0.95
+│           │   └── unicode-ident v1.0.18
+│           ├── quote v1.0.40
+│           │   └── proc-macro2 v1.0.95
+│           │       └── unicode-ident v1.0.18
+│           └── syn v2.0.101
+│               ├── proc-macro2 v1.0.95
+│               │   └── unicode-ident v1.0.18
+│               ├── quote v1.0.40
+│               │   └── proc-macro2 v1.0.95
+│               │       └── unicode-ident v1.0.18
+│               └── unicode-ident v1.0.18
+└── thiserror v1.0.69
+    └── thiserror-impl v1.0.69 (proc-macro)
+        ├── proc-macro2 v1.0.95
+        │   └── unicode-ident v1.0.18
+        ├── quote v1.0.40
+        │   └── proc-macro2 v1.0.95
+        │       └── unicode-ident v1.0.18
+        └── syn v2.0.101
+            ├── proc-macro2 v1.0.95
+            │   └── unicode-ident v1.0.18
+            ├── quote v1.0.40
+            │   └── proc-macro2 v1.0.95
+            │       └── unicode-ident v1.0.18
+            └── unicode-ident v1.0.18

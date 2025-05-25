@@ -50,7 +50,8 @@ dirs-next = "1.0"            # NEW: For cross-platform app data directory detect
 # CLI and user interaction (assuming password_core is also the main application's crate)
 # If password_core is purely a library, these should be moved to password_cli's Cargo.toml
 clap = { version = "4.5", features = ["derive"] } # For command-line argument parsing
-rpassword = "7.4"            # For secure password input without echoing
+# rpassword = "7.4"            # For secure password input without echoing
+scanpw = "1.0"
 comfy-table = "7.1"          # For displaying tabular data in the CLI
 
 #keyring implementations needs it
