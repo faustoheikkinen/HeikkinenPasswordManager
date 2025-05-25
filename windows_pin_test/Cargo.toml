@@ -1,0 +1,12 @@
+# windows_pin_test/Cargo.toml
+[package]
+name = "windows_pin_test"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# We want to explicitly use 0.59.0 for our own code
+# Include features that bring in some common Windows APIs for testing purposes.
+# We'll use a very basic one like `Win32_System_LibraryLoader` to get `GetModuleHandleA`.
+# For actual PIN/Auth, you'd need features like "Win32_Security_Credentials" or "Win32_Security_Identity_WebAuthn".
+windows-sys = { version = "0.59.0", features = ["Win32_System_LibraryLoader"] }

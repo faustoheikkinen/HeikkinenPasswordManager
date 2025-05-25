@@ -6,7 +6,7 @@ members = [
     "crates/password_core",
     "crates/password_storage",
     "crates/password_api",
-    "crates/password_cli",
+    "crates/password_cli", "windows_pin_test",
 ]
 resolver = "2" # <--- THIS LINE MUST BE DIRECTLY UNDER [workspace]
 
