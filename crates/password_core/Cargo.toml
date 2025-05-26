@@ -26,12 +26,18 @@ path = "src/bin/windows_hello_pin.rs"
 windows = { version = "0.61", features = [
     "Win32_Foundation",           # Essential for basic types like HRESULT, BOOL, etc.
     "Win32_UI_WindowsAndMessaging",           # Essential for basic types like HRESULT, BOOL, etc.
-    # "Win32_Security_Credentials", # For Credential Manager APIs, PIN/Hello
+    "Win32_Security_Credentials", # For Credential Manager APIs, PIN/Hello
+    # "Win32_Security_Cryptography", # For Credential Manager APIs, PIN/Hello
+    # "Win32_System_SystemServices", # For Credential Manager APIs, PIN/Hello
+    "Win32_Graphics_Gdi",           # Essential for basic types like HRESULT, BOOL, etc.
     # "Win32_System",           # Essential for basic types like HRESULT, BOOL, etc.
     # "Win32_System_Memory",           # Essential for basic types like HRESULT, BOOL, etc.
-    # "Win32_Graphics_Gdi",           # Essential for basic types like HRESULT, BOOL, etc.
     # "Win32_System_Com",           # Essential for basic types like HRESULT, BOOL, etc.
 ]}
+
+
+
+
 # Core password hashing and encryption
 argon2 = { version = "0.5.3", features = ["std"] }
 chacha20poly1305 = "0.10.1"

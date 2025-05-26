@@ -4,8 +4,8 @@
 [workspace]
 members = [
     "crates/password_core",
-    "crates/password_storage",
-    "crates/password_api",
+    # "crates/password_storage",
+    # "crates/password_api",
     "crates/password_cli", "windows_pin_test",
 ]
 resolver = "2" # <--- THIS LINE MUST BE DIRECTLY UNDER [workspace]
@@ -16,6 +16,16 @@ codegen-units = 1
 
 
 [workspace.lints] 
+
+# --- AGGRESSIVE CONSOLIDATION PATCHES ---
+# [patch.crates-io]
+# # Force all crates that ask for windows-sys to use 0.59.0 from crates.io
+# windows-sys = { version = "0.59.0" }
+
+# # Force socket2 to 0.6.0 from crates.io
+# # This version of socket2 is compatible with windows-sys 0.59.0
+# # THIS IS THE CORRECT PATCH FOR socket2 0.6.0 (from git)
+# socket2 = { git = "https://github.com/rust-lang/socket2.git", tag = "socket2-0.2.4" }
 
 
 
