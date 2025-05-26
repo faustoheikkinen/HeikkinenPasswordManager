@@ -4,9 +4,10 @@
 [workspace]
 members = [
     "crates/password_core",
-    # "crates/password_storage",
-    # "crates/password_api",
-    "crates/password_cli", "windows_pin_test",
+    "crates/password_storage",
+    "crates/password_api",
+    "crates/password_cli", 
+    "windows_pin_test",
 ]
 resolver = "2" # <--- THIS LINE MUST BE DIRECTLY UNDER [workspace]
 
@@ -14,39 +15,4 @@ resolver = "2" # <--- THIS LINE MUST BE DIRECTLY UNDER [workspace]
 lto = true
 codegen-units = 1
 
-
-[workspace.lints] 
-
-# --- AGGRESSIVE CONSOLIDATION PATCHES ---
-# [patch.crates-io]
-# # Force all crates that ask for windows-sys to use 0.59.0 from crates.io
-# windows-sys = { version = "0.59.0" }
-
-# # Force socket2 to 0.6.0 from crates.io
-# # This version of socket2 is compatible with windows-sys 0.59.0
-# # THIS IS THE CORRECT PATCH FOR socket2 0.6.0 (from git)
-# socket2 = { git = "https://github.com/rust-lang/socket2.git", tag = "socket2-0.2.4" }
-
-
-
-# # --- TARGETED PATCHING TO CONSOLIDATE WINDOWS-SYS ---
-# [patch.crates-io]
-# socket2 = { version = "0.6.0" } # This forces socket2 to 0.6.0 from crates.io
-# # If this doesn't work, we might need to point socket2 to a git repo, but let's try crates.io first.
-
-# # --- THIS IS THE NEW STRATEGY: Patch from Git ---
-# [patch.crates-io]
-# socket2 = { git = "https://github.com/rust-lang/socket2.git", tag = "socket2-0.6.0" }
-
-# [patch.crates-io]
-# socket2 = { version = "0.6.0" } 
-
-# # this is to solve a conflict with many versions of windows-sys 
-# [replace]
-# # "tokio:1.45.0" = { path = "./patches/tokio1.45.1_modified/tokio" }    
-# tokio = { path = "./patches/tokio1.45.1_modified/tokio" }    
-
-# # --- NEW: Use [patch.crates-io] to force specific versions ---
-# [patch.crates-io]
-# socket2 = { version = "0.6.0" } # Force socket2 to 0.6.0
-# windows-sys = { version = "0.59.0" } # Force windows-sys to 0.59.0
+# this is to solve a conflict with many versions of windows-sys 

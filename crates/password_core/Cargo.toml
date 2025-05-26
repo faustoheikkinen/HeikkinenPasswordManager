@@ -27,6 +27,7 @@ windows = { version = "0.61", features = [
     "Win32_Foundation",           # Essential for basic types like HRESULT, BOOL, etc.
     "Win32_UI_WindowsAndMessaging",           # Essential for basic types like HRESULT, BOOL, etc.
     "Win32_Security_Credentials", # For Credential Manager APIs, PIN/Hello
+    "Security_Credentials_UI", # For Credential Manager APIs, PIN/Hello
     # "Win32_Security_Cryptography", # For Credential Manager APIs, PIN/Hello
     # "Win32_System_SystemServices", # For Credential Manager APIs, PIN/Hello
     "Win32_Graphics_Gdi",           # Essential for basic types like HRESULT, BOOL, etc.
@@ -35,6 +36,11 @@ windows = { version = "0.61", features = [
     # "Win32_System_Com",           # Essential for basic types like HRESULT, BOOL, etc.
 ]}
 
+# windows-sys = { version = "0.59.0", features = [
+#     "Win32_Foundation",
+#     "Win32_Security_Credentials",
+#     "Win32_Graphics_Gdi", # Required for HBITMAP fields in CREDUI_INFOW
+# ]}
 
 
 
